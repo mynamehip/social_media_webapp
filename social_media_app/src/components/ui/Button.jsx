@@ -6,7 +6,7 @@ const Button = ({ onClick, fill, children }) => {
       {fill ? (
         <button
           onClick={onClick}
-          className="border bg-primary-600 border-primary-600 py-2 px-5 rounded-full font-bold text-white hover:bg-white hover:text-primary-600"
+          className="border bg-primary-600 border-primary-600 py-2 px-5 rounded-full font-bold text-white hover:bg-transparent hover:text-primary-600"
         >
           {children}
         </button>

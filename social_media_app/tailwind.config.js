@@ -2,13 +2,6 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
     extend: {
       colors: {
         "primary-500": "#877EFF",
@@ -24,13 +17,6 @@ module.exports = {
         "light-2": "#EFEFEF",
         "light-3": "#7878A3",
         "light-4": "#5C5C7B",
-      },
-      screens: {
-        xs: "480px",
-      },
-      width: {
-        420: "420px",
-        465: "465px",
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

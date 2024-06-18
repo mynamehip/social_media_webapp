@@ -1,3 +1,7 @@
 .bgGradient {
   background: linear-gradient(90deg, #00f260, #0575e6);
 }
+
+.bg-glass {
+  @apply bg-white/30 rounded-xl border-2 border-white/60 backdrop-blur-md;
+}
