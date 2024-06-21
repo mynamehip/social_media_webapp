@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-const LogIn = () => {
+const Auth = () => {
   return (
     <div>
       <Outlet />
@@ -9,4 +9,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Auth;

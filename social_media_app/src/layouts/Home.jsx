@@ -4,6 +4,9 @@ import SearchBar from "../components/ui/SearchBar";
 import TopList from "../components/TopList";
 import ProfileBox from "../components/ProfileBox";
 import FriendList from "../components/FriendList";
+import SettingBar from "../components/SettingBar";
+import NavBar from "../components/NavBar";
+import NewsBox from "../components/NewsBox";
 
 //import pic from "../assets/img/signupimg.jpg";
 
@@ -14,9 +17,13 @@ const Home = () => {
         <div className="flex flex-col h-full justify-between gap-5 pb-5">
           <SearchBar></SearchBar>
           <TopList></TopList>
+          <SettingBar></SettingBar>
         </div>
       </div>
-      <div className="middle bg-white lg:w-6/12 md:w-8/12 w-full flex-1"></div>
+      <div className="middle lg:w-6/12 md:w-8/12 w-full flex-1 flex flex-col gap-5">
+        <NavBar></NavBar>
+        <NewsBox></NewsBox>
+      </div>
       <div className="right lg:block hidden lg:w-3/12 h-full sticky top-5">
         <div className="flex flex-col h-full justify-between gap-5 pb-5">
           <ProfileBox></ProfileBox>

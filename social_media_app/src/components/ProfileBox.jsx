@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import Button from "./ui/Button";
 
@@ -6,6 +7,11 @@ import avatar from "../assets/img/blankavatar.png";
 import bg from "../assets/img/profilebackground.png";
 
 const ProfileBox = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="bg-glass min-h-80">
       <div className=" h-28 bg-blue-500 rounded-xl m-2 flex items-center justify-center overflow-hidden">
@@ -30,8 +36,11 @@ const ProfileBox = () => {
           <div className=" text-sm">0</div>
         </div>
       </div>
-      <div className="flex justify-center pb-2">
+      <div className="flex justify-center pb-2 items-center gap-5">
         <Button fill>New Post</Button>
+        <Button fill onClick={handleClick}>
+          Change Profile
+        </Button>
       </div>
     </div>
   );

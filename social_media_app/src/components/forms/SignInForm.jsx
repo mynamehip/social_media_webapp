@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../ui/InputWithLabel";
@@ -8,9 +8,20 @@ import Button from "../ui/Button";
 
 const SignInForm = () => {
   const navigate = useNavigate();
-  const handleClick = () => {
+  const switchForm = () => {
     navigate("/sign-up");
   };
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
+  };
+
+  const handleForm = () => {};
 
   return (
     <div className="bgGradient w-screen h-screen flex items-center justify-center">
@@ -20,11 +31,22 @@ const SignInForm = () => {
         </div> */}
         <div className="md:p-10 p-5 md:w-3/5 w-full space-y-10">
           <h1 className="text-[34px] font-bold">Sign In</h1>
-          <Input label="Email"></Input>
-          <Input label="Password"></Input>
+          <Input
+            label="Email"
+            name="email"
+            onChange={handleInputChange}
+          ></Input>
+          <Input
+            label="Password"
+            isPassword
+            name="password"
+            onChange={handleInputChange}
+          ></Input>
           <div className="flex gap-5">
-            <Button fill>Sign In</Button>
-            <Button onClick={handleClick}>Sign Up</Button>
+            <Button fill onClick={handleForm}>
+              Sign In
+            </Button>
+            <Button onClick={switchForm}>Sign Up</Button>
           </div>
         </div>
       </div>

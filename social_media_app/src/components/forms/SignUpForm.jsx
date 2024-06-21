@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Input from "../ui/InputWithLabel";
 import Button from "../ui/Button";
@@ -8,8 +9,23 @@ import Button from "../ui/Button";
 
 const SignUpForm = () => {
   const navigate = useNavigate();
-  const handleClick = () => {
+  const dispatch = useDispatch;
+  const switchForm = () => {
     navigate("/sign-in");
+  };
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData);
+  };
+
+  const handleForm = () => {
+    // dispatch(SignIn(formData));
   };
 
   return (
@@ -20,12 +36,27 @@ const SignUpForm = () => {
         </div> */}
         <div className="md:p-10 p-5 md:w-3/5 w-full space-y-10">
           <h1 className="text-[34px] font-bold">Sign up</h1>
-          <Input label="Name"></Input>
-          <Input label="Email"></Input>
-          <Input label="Password"></Input>
+          <Input
+            label="Name"
+            name="username"
+            onChange={handleInputChange}
+          ></Input>
+          <Input
+            label="Email"
+            name="email"
+            onChange={handleInputChange}
+          ></Input>
+          <Input
+            label="Password"
+            isPassword
+            name="password"
+            onChange={handleInputChange}
+          ></Input>
           <div className="flex gap-5">
-            <Button fill>Sign Up</Button>
-            <Button onClick={handleClick}>Sign In</Button>
+            <Button fill onClick={handleForm}>
+              Sign Up
+            </Button>
+            <Button onClick={switchForm}>Sign In</Button>
           </div>
         </div>
       </div>
