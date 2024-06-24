@@ -1,6 +1,11 @@
-import React from "react";
-
-const InputWithLabel = ({ label, isPassword, name, onChange }) => {
+const Input = ({
+  label,
+  name,
+  pattern,
+  errorMessage,
+  onChange,
+  handleValidate,
+}) => {
   return (
     <div>
       {label && (
@@ -9,14 +14,16 @@ const InputWithLabel = ({ label, isPassword, name, onChange }) => {
         </label>
       )}
       <input
-        id={label}
-        type={isPassword ? "password" : "text"}
+        type={name}
         name={name}
         onChange={onChange}
+        pattern={pattern}
+        onBlur={handleValidate}
         className="boder border-b-2 bg-transparent border-b-slate-950 outline-none focus:outline-none w-full px-2"
       />
+      <div className=" text-sm text-red min-h-8 my-2">{errorMessage}</div>
     </div>
   );
 };
 
-export default InputWithLabel;
+export default Input;

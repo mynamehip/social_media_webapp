@@ -5,7 +5,7 @@ namespace social_media_be.Repositories
 {
     public interface IAccountRepository
     {
-        public Task<IdentityResult> SignUpAsync(SignUpModel model);
+        public Task<string> SignUpAsync(SignUpModel model);
         public Task<string> SignInAsync(SignInModel model);
     }
 }

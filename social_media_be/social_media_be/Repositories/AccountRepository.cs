@@ -28,13 +28,18 @@ namespace social_media_be.Repositories
         {
             var user = await userManager.FindByEmailAsync(model.Email);
             var passwordValid = await userManager.CheckPasswordAsync(user, model.Password);
-            if(user == null || passwordValid == false)
+            if (user == null)
             {
-                return string.Empty;
+                throw new Exception("Account not found");
+            }
+            if (passwordValid == false)
+            {
+                throw new Exception("Incorrect password");
             }
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, model.Email),
+                new Claim("Id", user.Id),
+                new Claim("Email", user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var userRole = await userManager.GetRolesAsync(user);
@@ -42,6 +47,54 @@ namespace social_media_be.Repositories
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, role.ToString()));
             }
+            //var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
+            //var token = new JwtSecurityToken(
+            //    issuer: configuration["JWT:ValidIssuer"],
+            //    audience: configuration["JWT:ValidAudience"],
+            //    expires: DateTime.Now.AddMinutes(20),
+            //    claims: authClaims,
+            //    signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha512Signature)
+            //);
+            //return new JwtSecurityTokenHandler().WriteToken(token);
+            return CreateToken(user, authClaims);
+            
+        }
+
+        public async Task<string> SignUpAsync(SignUpModel model)
+        {
+            var existingUser = await userManager.FindByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                throw new Exception("Email already in use");
+            }
+            var user = new User
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+            };
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Errors: {errors}");
+            }
+            if (!await roleManager.RoleExistsAsync(AppRoles.User))
+            {
+                await roleManager.CreateAsync(new IdentityRole(AppRoles.User));
+                await userManager.AddToRoleAsync(user, AppRoles.User);
+            }
+            var authClaims = new List<Claim>
+            {
+                new Claim("Id", user.Id),
+                new Claim("Email", user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+            var userRoles = await userManager.GetRolesAsync(user);
+            authClaims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+            return CreateToken(user, authClaims);
+        }
+        public string CreateToken(User user, List<Claim> authClaims)
+        {
             var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
             var token = new JwtSecurityToken(
                 issuer: configuration["JWT:ValidIssuer"],
@@ -53,25 +106,5 @@ namespace social_media_be.Repositories
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<IdentityResult> SignUpAsync(SignUpModel model)
-        {
-            var user = new User()
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-            };
-            var result = await userManager.CreateAsync(user, model.Password);  
-            if (result.Succeeded)
-            {
-                if(!await roleManager.RoleExistsAsync(AppRoles.User))
-                {
-                    await roleManager.CreateAsync(new IdentityRole(AppRoles.User));
-                }
-
-                await userManager.AddToRoleAsync(user, AppRoles.User);
-            }
-
-            return result;
-        }
-    }
+    }  
 }

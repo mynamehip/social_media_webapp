@@ -1,11 +1,12 @@
 import React from "react";
 
-const Button = ({ onClick, fill, children }) => {
+const Button = ({ onClick, fill, disabled, children }) => {
   return (
     <div>
       {fill ? (
         <button
           onClick={onClick}
+          disabled={disabled}
           className="border bg-primary-600 border-primary-600 py-2 px-5 rounded-full font-bold text-white hover:bg-transparent hover:text-primary-600"
         >
           {children}
@@ -13,6 +14,7 @@ const Button = ({ onClick, fill, children }) => {
       ) : (
         <button
           onClick={onClick}
+          disabled={disabled}
           className="border border-primary-600 text-primary-600 py-2 px-5 rounded-full font-bold hover:bg-primary-600 hover:text-white"
         >
           {children}

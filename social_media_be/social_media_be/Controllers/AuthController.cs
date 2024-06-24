@@ -22,18 +22,15 @@ namespace social_media_be.Controllers
             try
             {
                 var result = await accountRepo.SignUpAsync(model);
-                if (result.Succeeded)
+                if (string.IsNullOrEmpty(result))
                 {
-                    return Ok(result.Succeeded);
+                    return BadRequest("Sign-up failed. Please try again.");
                 }
-                else
-                {
-                    throw new Exception(result.Errors.ToString());
-                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -45,12 +42,9 @@ namespace social_media_be.Controllers
                 var result = await accountRepo.SignInAsync(model);
                 if (string.IsNullOrEmpty(result))
                 {
-                    throw new Exception();
+                    return BadRequest("Sign-in failed. Please try again.");
                 }
-                else
-                {
-                    return Ok(result);
-                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
