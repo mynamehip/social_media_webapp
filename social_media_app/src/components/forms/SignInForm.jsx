@@ -65,7 +65,7 @@ const SignInForm = () => {
       }
     }
     if (checkError(formError)) {
-      dispatch(signIn(formData));
+      dispatch(signIn(formData, navigate));
     }
   };
 

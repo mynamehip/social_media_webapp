@@ -9,7 +9,7 @@ import {
   TbMessageCircle,
 } from "react-icons/tb";
 
-const NewsBox = () => {
+const PostBox = () => {
   return (
     <div className="w-full flex-1 overflow-scroll no-scrollbar space-y-5">
       {posts.map((post, index) => (
@@ -52,4 +52,4 @@ const NewsBox = () => {
   );
 };
 
-export default NewsBox;
+export default PostBox;

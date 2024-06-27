@@ -67,7 +67,7 @@ const SignUpForm = () => {
       }
     }
     if (checkError(formError)) {
-      dispatch(signUp(formData));
+      dispatch(signUp(formData, navigate));
     }
   };
 

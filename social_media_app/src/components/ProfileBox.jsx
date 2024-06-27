@@ -6,7 +6,7 @@ import Button from "./ui/Button";
 import avatar from "../assets/img/blankavatar.png";
 import bg from "../assets/img/profilebackground.png";
 
-const ProfileBox = () => {
+const ProfileBox = (props) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/profile");
@@ -37,7 +37,9 @@ const ProfileBox = () => {
         </div>
       </div>
       <div className="flex justify-center pb-2 items-center gap-5">
-        <Button fill>New Post</Button>
+        <Button fill onClick={props.handleOpenNewPost}>
+          New Post
+        </Button>
         <Button fill onClick={handleClick}>
           Change Profile
         </Button>
