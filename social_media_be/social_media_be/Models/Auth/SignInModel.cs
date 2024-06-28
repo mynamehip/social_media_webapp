@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace social_media_be.Models
+namespace social_media_be.Models.Auth
 {
-    public class SignUpModel
+    public class SignInModel
     {
-        [Required]
-        public string UserName { get; set; }
-        [Required]
+        [Required, EmailAddress]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }

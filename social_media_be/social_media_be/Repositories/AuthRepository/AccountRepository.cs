@@ -2,12 +2,12 @@
 using Microsoft.IdentityModel.Tokens;
 using social_media_be.Entities;
 using social_media_be.Helper;
-using social_media_be.Models;
+using social_media_be.Models.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace social_media_be.Repositories
+namespace social_media_be.Repositories.AuthRepository
 {
     public class AccountRepository : IAccountRepository
     {
@@ -38,8 +38,8 @@ namespace social_media_be.Repositories
             }
             var authClaims = new List<Claim>
             {
-                new Claim("Id", user.Id),
-                new Claim("Email", user.Email),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var userRole = await userManager.GetRolesAsync(user);
@@ -47,17 +47,7 @@ namespace social_media_be.Repositories
             {
                 authClaims.Add(new Claim(ClaimTypes.Role, role.ToString()));
             }
-            //var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));
-            //var token = new JwtSecurityToken(
-            //    issuer: configuration["JWT:ValidIssuer"],
-            //    audience: configuration["JWT:ValidAudience"],
-            //    expires: DateTime.Now.AddMinutes(20),
-            //    claims: authClaims,
-            //    signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha512Signature)
-            //);
-            //return new JwtSecurityTokenHandler().WriteToken(token);
             return CreateToken(user, authClaims);
-            
         }
 
         public async Task<string> SignUpAsync(SignUpModel model)
@@ -85,8 +75,8 @@ namespace social_media_be.Repositories
             }
             var authClaims = new List<Claim>
             {
-                new Claim("Id", user.Id),
-                new Claim("Email", user.Email),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var userRoles = await userManager.GetRolesAsync(user);
@@ -106,5 +96,5 @@ namespace social_media_be.Repositories
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-    }  
+    }
 }

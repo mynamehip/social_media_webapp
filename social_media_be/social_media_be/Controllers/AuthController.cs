@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using social_media_be.Models;
-using social_media_be.Repositories;
+using social_media_be.Models.Auth;
+using social_media_be.Repositories.AuthRepository;
+using social_media_be.Repositories.UserRepository;
 using System.Reflection.Metadata.Ecma335;
 
 namespace social_media_be.Controllers
@@ -10,10 +11,12 @@ namespace social_media_be.Controllers
     public class AuthController : Controller
     {
         private IAccountRepository accountRepo;
+        private IUserRepository userRepo;
 
-        public AuthController(IAccountRepository repo)
+        public AuthController(IAccountRepository repo, IUserRepository userRepository)
         {
             accountRepo = repo;
+            userRepo = userRepository;
         }
 
         [HttpPost("SignUp")]
@@ -26,14 +29,13 @@ namespace social_media_be.Controllers
                 {
                     return BadRequest("Sign-up failed. Please try again.");
                 }
-                return Ok(result);
+                return Ok(new { result, model });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn(SignInModel model)
         {
@@ -42,9 +44,10 @@ namespace social_media_be.Controllers
                 var result = await accountRepo.SignInAsync(model);
                 if (string.IsNullOrEmpty(result))
                 {
-                    return BadRequest("Sign-in failed. Please try again.");
+                    return BadRequest("Sign-up failed. Please try again.");
                 }
-                return Ok(result);
+                var user = await userRepo.GetByEmailAsync(model.Email);
+                return Ok(new { result, user });
             }
             catch (Exception ex)
             {

@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using social_media_be.Entities;
-using social_media_be.Repositories;
+using social_media_be.Repositories.AuthRepository;
+using social_media_be.Repositories.PostRepository;
+using social_media_be.Repositories.UserRepository;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +24,11 @@ builder.Services.AddCors(option => option.AddDefaultPolicy(policy => policy.Allo
 
 builder.Services.AddDbContext<AppDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("SocialMediaDb")));
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 builder.Services.AddAuthentication(option =>
 {

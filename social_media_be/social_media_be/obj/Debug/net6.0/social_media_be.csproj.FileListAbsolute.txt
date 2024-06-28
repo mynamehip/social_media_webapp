@@ -75,3 +75,5 @@ D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\b
 D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\bin\Debug\net6.0\social_media_be.staticwebassets.runtime.json
+D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\bin\Debug\net6.0\AutoMapper.dll
+D:\Code_Data\Learn\Web\Projects\SocialMediaApp\social_media_be\social_media_be\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

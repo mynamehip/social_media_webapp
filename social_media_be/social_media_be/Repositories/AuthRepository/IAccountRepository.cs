@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using social_media_be.Models;
+using social_media_be.Models.Auth;
 
-namespace social_media_be.Repositories
+namespace social_media_be.Repositories.AuthRepository
 {
     public interface IAccountRepository
     {

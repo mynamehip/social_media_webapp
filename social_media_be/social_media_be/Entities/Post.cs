@@ -7,15 +7,15 @@ namespace social_media_be.Entities
     public class Post
     {
         public string PostId { get; set; } = null!;
-        public string Content { get; set; }
-        public string Image { get; set; } = null!;
+        public string? Content { get; set; }
+        public string? Image { get; set; }
         public DateTime CreatedAt { get; set; }
 
         public string UserId { get; set; } = null!;
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<Vote> Votes { get; set; }
+        public virtual ICollection<Comment>? Comments { get; set; }
+        public virtual ICollection<Vote>? Votes { get; set; }
     }
 
     public class Comment

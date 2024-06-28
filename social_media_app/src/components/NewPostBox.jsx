@@ -1,15 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import Button from "./ui/Button";
+import { createPost } from "../actions/postAction";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 
 const NewPostBox = (props) => {
-  const desc = useRef();
+  const descRef = useRef();
   const imageRef = useRef();
 
   const [textRow, setTextRow] = useState(6);
   const [image, setImage] = useState();
+
+  const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => state.authReducer.data);
 
   const onUploadImage = (e) => {
     setTextRow(3);
@@ -29,7 +35,21 @@ const NewPostBox = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.alert("hi");
+
+    const formData = new FormData();
+    formData.append("userId", user.id);
+    formData.append("content", descRef.current.value);
+    formData.append("createdAt", new Date().toISOString());
+
+    if (image) {
+      const uniqueFileName = `${Date.now()}_${image.name}`;
+      formData.append("image", image, uniqueFileName);
+    }
+    try {
+      dispatch(createPost(formData));
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 
   return (
@@ -53,7 +73,7 @@ const NewPostBox = (props) => {
             id=""
             className=" w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
             placeholder="Write somethings..."
-            ref={desc}
+            ref={descRef}
             rows={textRow}
           ></textarea>
           <div className="imgDisplay">
