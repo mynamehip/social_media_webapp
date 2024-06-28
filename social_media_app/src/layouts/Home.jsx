@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import SearchBar from "../components/ui/SearchBar";
 import TopList from "../components/TopList";
@@ -16,6 +17,11 @@ const Home = () => {
   const handleOpenNewPost = () => {
     setOpenNewPost(!isOpenNewPost);
   };
+
+  let user = localStorage.getItem("userData");
+  if (user != null) {
+    user = JSON.parse(user).user;
+  }
 
   return (
     <div className="w-full h-screen bg-gradient-to-br from-[#00F260] to-[#0575E6] p-5 pb-0 flex md:gap-5">
@@ -36,7 +42,18 @@ const Home = () => {
       </div>
       <div className="right lg:block hidden lg:w-3/12 h-full sticky top-5">
         <div className="flex flex-col h-full justify-between gap-5 pb-5">
-          <ProfileBox handleOpenNewPost={handleOpenNewPost}></ProfileBox>
+          {user === null ? (
+            <div className="bg-glass min-h-80 flex items-center justify-center text-center text-lg ">
+              <span>
+                <Link to={"/sign-in"} className="underline text-blue-800">
+                  Sign-in
+                </Link>{" "}
+                to know more
+              </span>
+            </div>
+          ) : (
+            <ProfileBox handleOpenNewPost={handleOpenNewPost}></ProfileBox>
+          )}
           <FriendList></FriendList>
         </div>
       </div>

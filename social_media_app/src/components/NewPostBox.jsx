@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
 import Button from "./ui/Button";
-import { createPost } from "../actions/postAction";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
-import { useDispatch, useSelector } from "react-redux";
+import { createPost } from "../actions/postAction";
 
 const NewPostBox = (props) => {
   const descRef = useRef();
@@ -12,8 +12,6 @@ const NewPostBox = (props) => {
 
   const [textRow, setTextRow] = useState(6);
   const [image, setImage] = useState();
-
-  const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.authReducer.data);
 
@@ -33,7 +31,7 @@ const NewPostBox = (props) => {
     };
   }, [image]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
@@ -45,10 +43,19 @@ const NewPostBox = (props) => {
       const uniqueFileName = `${Date.now()}_${image.name}`;
       formData.append("image", image, uniqueFileName);
     }
+
+    let token = localStorage.getItem("userData");
+    if (token) {
+      token = JSON.parse(token).result;
+      console.log(token);
+    }
+
     try {
-      dispatch(createPost(formData));
-    } catch (ex) {
-      console.log(ex);
+      const response = await createPost(formData);
+      props.handleOpenNewPost();
+      console.log("Post created successfully:", response);
+    } catch (error) {
+      console.error("Error creating post:", error.response || error);
     }
   };
 

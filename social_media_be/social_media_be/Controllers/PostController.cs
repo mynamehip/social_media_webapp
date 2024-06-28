@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using social_media_be.Entities;
+using social_media_be.Helper;
 using social_media_be.Models.Post;
 using social_media_be.Repositories.PostRepository;
 
@@ -19,6 +21,7 @@ namespace social_media_be.Controllers
         }
 
         [HttpPost("CreatePost")]
+        [Authorize(Roles = AppRoles.User)]
         public async Task<IActionResult> CreatePost([FromForm] PostModel model)
         {
             try

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rboBHA0oTWSkqbEF7GEd4Vep5HKRA+WFPhIDq6RP6qQ=",
+  "Hash": "P8ZGF3MPZJA5Z7/rx72knkqXJ5OdTPrAz1H66+HkaKI=",
   "Source": "social_media_be",
   "BasePath": "_content/social_media_be",
   "Mode": "Default",
@@ -15,5 +15,44 @@
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719570703596_download.jpg",
+      "SourceId": "social_media_be",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\",
+      "BasePath": "_content/social_media_be",
+      "RelativePath": "Images/1719570703596_download.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\1719570703596_download.jpg"
+    },
+    {
+      "Identity": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719588409915_R.jpg",
+      "SourceId": "social_media_be",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\",
+      "BasePath": "_content/social_media_be",
+      "RelativePath": "Images/1719588409915_R.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\1719588409915_R.jpg"
+    }
+  ]
 }

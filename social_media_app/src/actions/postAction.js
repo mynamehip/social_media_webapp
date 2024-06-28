@@ -1,11 +1,10 @@
-import * as UpLoadAPI from "../api/uploadRequest";
+import * as PostAPI from "../api/postRequest";
 
-export const createPost = (formData) => async (dispatch) => {
-  dispatch({ type: "CREATE_START" });
+export const createPost = async (formData) => {
   try {
-    await UpLoadAPI.createPost(formData);
-    dispatch({ type: "CREATE_SUCCESS" });
+    const response = await PostAPI.createPost(formData);
+    return response;
   } catch (error) {
-    dispatch({ type: "CREATE_FAILED" });
+    throw error;
   }
 };

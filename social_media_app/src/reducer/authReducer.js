@@ -26,7 +26,6 @@ const authReducer = (
       };
     default:
       return { ...state };
-    //throw new Error("Invalid action...");
   }
 };
 
