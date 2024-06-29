@@ -1,6 +1,7 @@
-import axios from "axios";
+// import axios from "axios";
+import { hostAPI } from ".";
 
-const API = axios.create({ baseURL: "https://localhost:7293" });
+// const API = axios.create({ baseURL: "https://localhost:7293" });
 
 export const createPost = async (formData) => {
   let token = localStorage.getItem("userData");
@@ -9,15 +10,12 @@ export const createPost = async (formData) => {
   }
   token = JSON.parse(token).result;
 
-  try {
-    const response = await API.post("/api/Post/CreatePost", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  return await hostAPI.post("/api/Post/CreatePost", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
+export const getAllPost = async (pageNumber) =>
+  hostAPI.get(`/api/Post/GetAllPost?pageNumber=${pageNumber}&pageSize=10`);

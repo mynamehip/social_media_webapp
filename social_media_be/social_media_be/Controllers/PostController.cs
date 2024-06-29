@@ -29,12 +29,26 @@ namespace social_media_be.Controllers
                 var result = await _repo.AddPostAsync(model);
                 if (result)
                 {
-                    return Ok();
+                    return StatusCode(StatusCodes.Status201Created);
                 }
                 else
                 {
                     return BadRequest();
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetAllPost")]
+        public async Task<IActionResult> GetAllPost(int pageNumber, int pageSize)
+        {
+            try
+            {
+                var posts = await _repo.GetAllPostsAsync(pageNumber, pageSize);
+                return Ok(posts);
             }
             catch (Exception ex)
             {

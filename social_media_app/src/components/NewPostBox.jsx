@@ -47,13 +47,16 @@ const NewPostBox = (props) => {
     let token = localStorage.getItem("userData");
     if (token) {
       token = JSON.parse(token).result;
-      console.log(token);
     }
 
     try {
       const response = await createPost(formData);
-      props.handleOpenNewPost();
-      console.log("Post created successfully:", response);
+      if (response.status === 201) {
+        props.handleOpenNewPost();
+        console.log("Post created successfully:", response.data);
+      } else {
+        console.log("Post created failed:", response.error);
+      }
     } catch (error) {
       console.error("Error creating post:", error.response || error);
     }

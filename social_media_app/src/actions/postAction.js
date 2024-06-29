@@ -8,3 +8,12 @@ export const createPost = async (formData) => {
     throw error;
   }
 };
+
+export const getAllPost = async (pageNumber) => {
+  try {
+    const response = await PostAPI.getAllPost(pageNumber);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

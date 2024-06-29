@@ -1,6 +1,8 @@
-import axios from "axios";
+// import axios from "axios";
 
-const API = axios.create({ baseURL: "https://localhost:7293" });
+import { hostAPI } from ".";
 
-export const signIn = (formData) => API.post("/api/Auth/SignIn", formData);
-export const signUp = (formData) => API.post("/api/Auth/SignUp", formData);
+// const API = axios.create({ baseURL: "https://localhost:7293" });
+
+export const signIn = (formData) => hostAPI.post("/api/Auth/SignIn", formData);
+export const signUp = (formData) => hostAPI.post("/api/Auth/SignUp", formData);

@@ -33,5 +33,18 @@ namespace social_media_be.Repositories.UserRepository
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<UserModel> GetByIdAsync(string id)
+        {
+            try
+            {
+                var user = await userManager.FindByIdAsync(id);
+                return mapper.Map<UserModel>(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
