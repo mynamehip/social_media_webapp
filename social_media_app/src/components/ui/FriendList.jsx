@@ -1,6 +1,6 @@
 import React from "react";
 
-import avatar from "../assets/img/blankavatar.png";
+import avatar from "../../assets/img/blankavatar.png";
 
 const FriendList = () => {
   return (

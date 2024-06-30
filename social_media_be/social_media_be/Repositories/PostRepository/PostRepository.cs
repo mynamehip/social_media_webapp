@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using social_media_be.Entities;
 using social_media_be.Models.Post;
 using social_media_be.Repositories.UserRepository;
@@ -75,6 +76,91 @@ namespace social_media_be.Repositories.PostRepository
         public Task<PostModel> GetPostByIdAsync(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task VotePostAsync(VoteModel model)
+        {
+            try
+            {
+                var vote = _mapper.Map<Vote>(model);
+                await _context.Votes.AddAsync(vote);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task UpdateVotePostAsync(VoteModel model)
+        {
+            try
+            {
+                var result = await _context.Votes.FirstOrDefaultAsync(p => p.UserId == model.UserId && p.PostId == model.PostId);
+                if (result == null)
+                {
+                    throw new Exception("Can find the voted");
+                }
+                result.Value = model.Value;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task DeleteVotePostAsync(string userId, string postId)
+        {
+            try
+            {
+                var result = await _context.Votes.SingleOrDefaultAsync(p => p.UserId == userId && p.PostId == postId);
+                if (result == null)
+                {
+                    throw new Exception("Can find the voted");
+                }
+                _context.Votes.Remove(result);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<(int upVote, int downVote)> GetAllVoteAsync(string postId)
+        {
+            try
+            {
+                var upVotes = await _context.Votes.CountAsync(v => v.PostId == postId && v.Value == 1);
+                var downVotes = await _context.Votes.CountAsync(v => v.PostId == postId && v.Value == -1);
+
+                return (upVotes, downVotes);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<VoteModel> GetVoteByIdAsync(string userId, string postId)
+        {
+            try
+            {
+                var result = await _context.Votes.SingleOrDefaultAsync(p => p.UserId == userId && p.PostId == postId);
+                //var result = await _context.Votes.FirstOrDefaultAsync(p => p.UserId == userId && p.PostId == postId);
+
+                if (result == null)
+                {
+                    return null;
+                }
+                var vote = _mapper.Map<VoteModel>(result);
+                return vote;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

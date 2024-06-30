@@ -55,5 +55,88 @@ namespace social_media_be.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("VotePost")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> VoteThePost(VoteModel model)
+        {
+            try
+            {
+                await _repo.VotePostAsync(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("UpdateVote")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> UpdateVote(VoteModel model)
+        {
+            try
+            {
+                await _repo.UpdateVotePostAsync(model);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("DeleteVote")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> DeletaVote(string userId, string postId)
+        {
+            try
+            {
+                await _repo.DeleteVotePostAsync(userId, postId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetAllVote")]
+        public async Task<IActionResult> GetAllVote(string postId)
+        {
+            try
+            {
+                var (upVotes, downVotes) = await _repo.GetAllVoteAsync(postId);
+
+                return Ok(new { UpVotes = upVotes, DownVotes = downVotes });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetVoteById")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> GetVoteById(string userId, string postId)
+        {
+            try
+            {
+                var result = await _repo.GetVoteByIdAsync(userId, postId);
+                if(result == null)
+                {
+                    return StatusCode(204);
+                }
+                else
+                {
+                    return Ok(result);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

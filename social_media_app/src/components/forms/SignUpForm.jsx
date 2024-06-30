@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Input from "../ui/Input";
-import Button from "../ui/Button";
+import Input from "../base/Input";
+import Button from "../base/Button";
 import { signUp } from "../../actions/authAction";
 
 const SignUpForm = () => {

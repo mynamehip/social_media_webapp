@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { getAllPost } from "../actions/postAction";
-import { hostURL } from "../api";
+import { getAllPost } from "../../actions/postAction";
+import { hostURL } from "../../api";
 
-import {
-  TbArrowBigUp,
-  TbArrowBigDown,
-  TbArrowBigUpFilled,
-  TbArrowBigDownFilled,
-  TbMessageCircle,
-} from "react-icons/tb";
+import Avatar from "../base/Avatar";
+import VoteBox from "./VoteBox";
+import { TbMessageCircle } from "react-icons/tb";
 
 const PostBox = () => {
   const scrollDiv = useRef();
@@ -66,14 +62,14 @@ const PostBox = () => {
 
   return (
     <div
-      className="w-full flex-1 overflow-scroll space-y-5"
+      className="w-full flex-1 overflow-y-scroll space-y-5"
       id="scrollableDivRef"
       ref={scrollDiv}
     >
       {posts.map((post, index) => (
         <div key={index} className="w-full h-auto bg-glass p-4 flex flex-col">
-          <div className="text-lg font-bold leading-tight pb-4">
-            #{post.userName}
+          <div className="text-lg font-bold leading-tight pb-4 flex items-center gap-3">
+            <Avatar size={10}></Avatar>#{post.userName}
           </div>
           <div className={`${post.content && "pb-4"}`}>{post.content}</div>
           <div
@@ -88,18 +84,7 @@ const PostBox = () => {
             />
           </div>
           <div className="flex items-center gap-1">
-            <div className="text-xl">
-              {post.voted === 1 ? <TbArrowBigUpFilled /> : <TbArrowBigUp />}{" "}
-            </div>
-            {post.up}
-            <div className="text-xl pl-5">
-              {post.voted === -1 ? (
-                <TbArrowBigDownFilled />
-              ) : (
-                <TbArrowBigDown />
-              )}
-            </div>
-            {post.down}
+            <VoteBox post={post}></VoteBox>
             <div className=" text-xl pl-5">
               <TbMessageCircle />
             </div>

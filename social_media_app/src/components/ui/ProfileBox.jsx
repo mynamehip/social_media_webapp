@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "./ui/Button";
+import Button from "../base/Button";
 
-import avatar from "../assets/img/blankavatar.png";
-import bg from "../assets/img/profilebackground.png";
+import avatar from "../../assets/img/blankavatar.png";
+import bg from "../../assets/img/profilebackground.png";
 
 const ProfileBox = (props) => {
   const navigate = useNavigate();

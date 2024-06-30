@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
-import Button from "./ui/Button";
+import Button from "../base/Button";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
-import { createPost } from "../actions/postAction";
+import { createPost } from "../../actions/postAction";
 
 const NewPostBox = (props) => {
   const descRef = useRef();

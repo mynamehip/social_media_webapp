@@ -1,6 +1,6 @@
 import React from "react";
 
-import { listData } from "../data/fakeList";
+import { listData } from "../../data/fakeList";
 
 const TopList = () => {
   return (
