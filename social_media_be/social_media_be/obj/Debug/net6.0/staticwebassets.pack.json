@@ -17,6 +17,14 @@
       "PackagePath": "staticwebassets\\Images\\1719631077557_OIP (1).jpg"
     },
     {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719839638347_anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\1719839638347_anh-gai-xinh-vn-2.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\R.jpg",
+      "PackagePath": "staticwebassets\\Images\\R.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.social_media_be.props",
       "PackagePath": "build\\social_media_be.props"
     },

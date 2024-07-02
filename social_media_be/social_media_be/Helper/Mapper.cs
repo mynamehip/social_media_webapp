@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using social_media_be.Entities;
-using social_media_be.Models;
 using social_media_be.Models.Post;
+using social_media_be.Models.User;
 
 namespace social_media_be.Helper
 {

@@ -1,4 +1,6 @@
-﻿namespace social_media_be.Models.Post
+﻿using social_media_be.Models.User;
+
+namespace social_media_be.Models.Post
 {
     public class CommentModel
     {

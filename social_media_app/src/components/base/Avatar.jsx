@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { UserContext } from "../../layouts/Home";
 
 import blankAvatar from "../../assets/img/blankavatar.png";
 
-const Avatar = ({ size, avatar }) => {
+const Avatar = ({ avtar }) => {
+  const user = useContext(UserContext);
   return (
-    <div>
+    <div className=" h-full w-full">
       <img
-        src={avatar ?? blankAvatar}
+        src={avtar ?? blankAvatar}
         alt=""
-        className={` h-${size} w-${size} object-cover rounded-full top-20`}
+        className={` h-full w-full object-cover rounded-full`}
       />
     </div>
   );

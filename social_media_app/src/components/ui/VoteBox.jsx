@@ -51,23 +51,21 @@ const VoteBox = ({ post }) => {
 
   const handleVoteAction = async (actionType, newVoteValue) => {
     try {
-      let response;
       if (actionType === "vote") {
-        response = await votePost({
+        await votePost({
           value: newVoteValue,
           postId: post.postId,
           userId: user.id,
         });
       } else if (actionType === "update") {
-        response = await updateVote({
+        await updateVote({
           value: newVoteValue,
           postId: post.postId,
           userId: user.id,
         });
       } else if (actionType === "delete") {
-        response = await deleteVote(user.id, post.postId);
+        await deleteVote(user.id, post.postId);
       }
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -79,17 +77,14 @@ const VoteBox = ({ post }) => {
       let newVoteValue;
 
       if (prevVoteValue === value) {
-        // If the same vote is clicked, delete the vote
         actionType = "delete";
         newVoteValue = 0;
         updateVotedNumber(value, -1);
       } else if (prevVoteValue === 0) {
-        // If no vote is currently set, create a new vote
         actionType = "vote";
         newVoteValue = value;
         updateVotedNumber(value, 1);
       } else {
-        // If a different vote is currently set, update the vote
         actionType = "update";
         updateVotedNumber(prevVoteValue, -1);
         updateVotedNumber(value, 1);

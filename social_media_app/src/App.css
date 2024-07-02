@@ -14,3 +14,17 @@
   -ms-overflow-style: none; /* IE và Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+body ::-webkit-scrollbar {
+  width: 10px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 100rem;
+}
+
+body ::-webkit-scrollbar-track {
+  margin-right: 5px;
+  background-color: transparent;
+}

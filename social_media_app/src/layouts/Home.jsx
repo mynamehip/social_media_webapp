@@ -7,8 +7,8 @@ import ProfileBox from "../components/ui/ProfileBox";
 import FriendList from "../components/ui/FriendList";
 import SettingBar from "../components/ui/SettingBar";
 import NavBar from "../components/ui/NavBar";
-import PostBox from "../components/ui/PostBox";
 import NewPostBox from "../components/ui/NewPostBox";
+import CreatePostBox from "../components/ui/CreatePostBox";
 
 export const UserContext = createContext();
 
@@ -29,7 +29,7 @@ const Home = () => {
     <UserContext.Provider value={user}>
       <div className="w-full h-screen bg-gradient-to-br from-[#00F260] to-[#0575E6] p-5 pb-0 flex md:gap-5">
         {isOpenNewPost && (
-          <NewPostBox handleOpenNewPost={handleOpenNewPost}></NewPostBox>
+          <CreatePostBox handleOpenNewPost={handleOpenNewPost}></CreatePostBox>
         )}
 
         <div className="left md:block hidden lg:w-3/12 md:w-4/12 h-full sticky top-5">
@@ -41,7 +41,7 @@ const Home = () => {
         </div>
         <div className="middle lg:w-6/12 md:w-8/12 w-full flex-1 flex flex-col gap-5">
           <NavBar></NavBar>
-          <PostBox></PostBox>
+          <NewPostBox></NewPostBox>
         </div>
         <div className="right lg:block hidden lg:w-3/12 h-full sticky top-5">
           <div className="flex flex-col h-full justify-between gap-5 pb-5">

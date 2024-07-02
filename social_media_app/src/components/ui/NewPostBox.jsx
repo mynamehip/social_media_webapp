@@ -1,121 +1,121 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
 
-import Button from "../base/Button";
+import { getAllPost } from "../../actions/postAction";
+import { hostURL } from "../../api";
 
-import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
-import { createPost } from "../../actions/postAction";
+import Avatar from "../base/Avatar";
+import VoteBox from "./VoteBox";
+import { TbMessageCircle } from "react-icons/tb";
 
-const NewPostBox = (props) => {
-  const descRef = useRef();
-  const imageRef = useRef();
+const PostBox = () => {
+  const scrollDiv = useRef();
 
-  const [textRow, setTextRow] = useState(6);
-  const [image, setImage] = useState();
+  const [posts, setPosts] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setLoading] = useState(false);
+  const [loadAble, setLoadAble] = useState(true);
 
-  const { user } = useSelector((state) => state.authReducer.data);
-
-  const onUploadImage = (e) => {
-    setTextRow(3);
-    setImage(e.target.files[0]);
-  };
-  const onRemoveImage = () => {
-    setImage(null);
-    setTextRow(6);
-    imageRef.current.value = "";
+  const load = async (pageNumber) => {
+    if (isLoading) return;
+    setLoading(true);
+    try {
+      const response = await getAllPost(pageNumber);
+      if (response.data.length < 10) {
+        setLoadAble(false);
+      }
+      setPosts((prePosts) => [...prePosts, ...response.data]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    return () => {
-      image && URL.revokeObjectURL(image);
-    };
-  }, [image]);
+    load(pageNumber);
+    // eslint-disable-next-line
+  }, [pageNumber]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append("userId", user.id);
-    formData.append("content", descRef.current.value);
-    formData.append("createdAt", new Date().toISOString());
-
-    if (image) {
-      const uniqueFileName = `${Date.now()}_${image.name}`;
-      formData.append("image", image, uniqueFileName);
-    }
-
-    let token = localStorage.getItem("userData");
-    if (token) {
-      token = JSON.parse(token).result;
-    }
-
-    try {
-      const response = await createPost(formData);
-      if (response.status === 201) {
-        props.handleOpenNewPost();
-        console.log("Post created successfully:", response.data);
-      } else {
-        console.log("Post created failed:", response.error);
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (
+        e.target.scrollHeight - e.target.scrollTop <=
+        e.target.clientHeight + 100
+      ) {
+        if (loadAble && !isLoading) {
+          setPageNumber((prev) => prev + 1);
+        }
       }
-    } catch (error) {
-      console.error("Error creating post:", error.response || error);
+    };
+
+    const scrollableDiv = scrollDiv.current;
+    if (scrollableDiv) {
+      scrollableDiv.addEventListener("scroll", handleScroll);
     }
+
+    return () => {
+      if (scrollableDiv) {
+        scrollableDiv.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [loadAble, isLoading]);
+
+  const handleContent = (content) => {
+    if (!content) {
+      return null;
+    }
+    const lines = content.includes("\n") ? content.split("\n") : [content];
+    return (
+      <div>
+        {lines.map((line, index) => (
+          <React.Fragment key={index}>
+            {line}
+            {index < lines.length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </div>
+    );
   };
 
   return (
-    <div className=" fixed top-0 left-0 w-full h-full z-50 bg-[#00000080]">
-      <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white lg:w-1/2 md:w-4/5 w-[90%] min-h-[100px] rounded-xl">
-        <div className=" text-center text-xl font-bold py-3 grid grid-cols-3">
-          <p className=" col-start-2"> Create new post</p>
-          <div className=" flex justify-end items-center text-2xl pr-4 text-gray-500">
-            <IoMdCloseCircle
-              onClick={props.handleOpenNewPost}
-            ></IoMdCloseCircle>
+    <div
+      className="w-full flex-1 overflow-y-scroll space-y-5"
+      id="scrollableDivRef"
+      ref={scrollDiv}
+    >
+      {posts.map((post, index) => (
+        <div key={index} className="w-full h-auto bg-glass p-4 flex flex-col">
+          <div className="text-lg font-semibold leading-tight pb-4 flex items-center gap-3">
+            <div className=" w-10 h-10">
+              <Avatar></Avatar>
+            </div>
+            {post.userName}
+          </div>
+          <div className={`${post.content && "pb-4"}`}>
+            {handleContent(post.content)}
+          </div>
+          <div
+            className={` w-full flex items-center justify-center ${
+              post.imagePath && "pb-4"
+            }`}
+          >
+            <img
+              src={`${hostURL}${post.imagePath}`}
+              alt=""
+              className=" w-full max-h-96 rounded-md object-cover"
+            />
+          </div>
+          <div className="flex items-center gap-1">
+            <VoteBox post={post}></VoteBox>
+            <div className=" text-xl pl-5">
+              <TbMessageCircle />
+            </div>
+            {post.comment}
           </div>
         </div>
-        <hr className=" border-gray-500" />
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col items-center px-4 pt-4"
-        >
-          <textarea
-            name=""
-            id=""
-            className=" w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
-            placeholder="Write somethings..."
-            ref={descRef}
-            rows={textRow}
-          ></textarea>
-          <div className="imgDisplay">
-            {image && (
-              <div className=" relative">
-                {" "}
-                <img
-                  src={URL.createObjectURL(image)}
-                  alt=""
-                  className=" w-[100%] max-h-80 object-cover mt-4 rounded-xl"
-                ></img>
-                <div className=" text-2xl text-white absolute top-2 right-2">
-                  <IoMdCloseCircle onClick={onRemoveImage}></IoMdCloseCircle>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="postOption w-full text-4xl text-green-500 my-4 flex gap-3">
-            <IoMdPhotos onClick={() => imageRef.current.click()}></IoMdPhotos>
-            <div className=" text-xs flex-1">
-              <Button fill css="w-full">
-                Share
-              </Button>
-            </div>
-          </div>
-          <div style={{ display: "none" }}>
-            <input type="file" ref={imageRef} onChange={onUploadImage} />
-          </div>
-        </form>
-      </div>
+      ))}
     </div>
   );
 };
 
-export default NewPostBox;
+export default PostBox;
