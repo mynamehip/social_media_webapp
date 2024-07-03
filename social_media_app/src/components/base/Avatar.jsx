@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { UserContext } from "../../layouts/Home";
+import { hostURL } from "../../api";
 
 import blankAvatar from "../../assets/img/blankavatar.png";
 
-const Avatar = ({ avtar }) => {
-  const user = useContext(UserContext);
+const Avatar = ({ avatar }) => {
+  const avatarPath = hostURL + avatar;
   return (
     <div className=" h-full w-full">
       <img
-        src={avtar ?? blankAvatar}
+        src={avatar ? avatarPath : blankAvatar}
         alt=""
         className={` h-full w-full object-cover rounded-full`}
       />

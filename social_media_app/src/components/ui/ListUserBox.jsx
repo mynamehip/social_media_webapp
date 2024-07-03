@@ -61,7 +61,7 @@ const ListUserBox = ({ users }) => {
             className=" flex gap-4 items-center bg-white p-2 rounded-xl"
           >
             <div className=" h-12 w-12">
-              <Avatar avatar={item.avtar}></Avatar>
+              <Avatar avatar={item.avatar}></Avatar>
             </div>
             <div>
               <div className=" text-base font-semibold">{item.userName}</div>

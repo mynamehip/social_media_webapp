@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 import SearchBar from "../components/base/SearchBar";
 import TopList from "../components/ui/TopList";
@@ -7,7 +7,7 @@ import ProfileBox from "../components/ui/ProfileBox";
 import FriendList from "../components/ui/FriendList";
 import SettingBar from "../components/ui/SettingBar";
 import NavBar from "../components/ui/NavBar";
-import NewPostBox from "../components/ui/NewPostBox";
+//import NewPostBox from "../components/ui/NewPostBox";
 import CreatePostBox from "../components/ui/CreatePostBox";
 
 export const UserContext = createContext();
@@ -41,7 +41,7 @@ const Home = () => {
         </div>
         <div className="middle lg:w-6/12 md:w-8/12 w-full flex-1 flex flex-col gap-5">
           <NavBar></NavBar>
-          <NewPostBox></NewPostBox>
+          <Outlet></Outlet>
         </div>
         <div className="right lg:block hidden lg:w-3/12 h-full sticky top-5">
           <div className="flex flex-col h-full justify-between gap-5 pb-5">

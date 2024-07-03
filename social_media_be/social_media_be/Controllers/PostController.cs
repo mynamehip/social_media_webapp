@@ -56,6 +56,21 @@ namespace social_media_be.Controllers
             }
         }
 
+        [HttpGet("GetPostByUser")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> GetPostByUser( string userId, int pageNumber, int pageSize)
+        {
+            try
+            {
+                var posts = await _repo.GetPostByUserAsync(userId, pageNumber, pageSize);
+                return Ok(posts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("VotePost")]
         [Authorize(Roles = AppRoles.User)]
         public async Task<IActionResult> VoteThePost(VoteModel model)

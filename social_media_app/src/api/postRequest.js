@@ -11,9 +11,19 @@ export const createPost = async (formData) => {
     },
   });
 };
-
 export const getAllPost = async (pageNumber) =>
   hostAPI.get(`/api/Post/GetAllPost?pageNumber=${pageNumber}&pageSize=10`);
+export const getPostByUser = async (userId, pageNumber) => {
+  return await hostAPI.get(
+    `/api/Post/GetPostByUser?userId=${userId}&pageNumber=${pageNumber}&pageSize=10`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+    }
+  );
+};
 
 export const votePost = async (data) => {
   return await hostAPI.post("/api/Post/VotePost", data, {
@@ -23,6 +33,7 @@ export const votePost = async (data) => {
     },
   });
 };
+
 export const updateVote = async (data) => {
   return await hostAPI.put("/api/Post/UpdateVote", data, {
     headers: {

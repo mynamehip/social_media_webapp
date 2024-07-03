@@ -78,6 +78,23 @@ namespace social_media_be.Repositories.PostRepository
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<PostModel>> GetPostByUserAsync(string userId, int pageNumber, int pageSize)
+        {
+            var posts = await _context.Posts.Where(p => p.UserId == userId).OrderByDescending(p => p.CreatedAt).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var postModels = _mapper.Map<List<PostModel>>(posts);
+            for (int i = 0; i < posts.Count; i++)
+            {
+                var user = await _userRepo.GetByIdAsync(postModels[i].UserId);
+                postModels[i].UserName = user.UserName;
+                if (!string.IsNullOrEmpty(posts[i].Image))
+                {
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", posts[i].Image);
+                    postModels[i].imagePath = imagePath;
+                }
+            }
+            return postModels;
+        }
+
         public async Task VotePostAsync(VoteModel model)
         {
             try

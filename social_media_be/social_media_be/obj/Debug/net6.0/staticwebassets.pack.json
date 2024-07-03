@@ -21,8 +21,24 @@
       "PackagePath": "staticwebassets\\Images\\1719839638347_anh-gai-xinh-vn-2.jpg"
     },
     {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719927089205_anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\1719927089205_anh-gai-xinh-vn-2.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719928058677_GOGOrSVaUAAXorn.jpg",
+      "PackagePath": "staticwebassets\\Images\\1719928058677_GOGOrSVaUAAXorn.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719966956061_gx1.jpg",
+      "PackagePath": "staticwebassets\\Images\\1719966956061_gx1.jpg"
+    },
+    {
       "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\R.jpg",
       "PackagePath": "staticwebassets\\Images\\R.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\anh-gai-xinh-vn-2.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.social_media_be.props",

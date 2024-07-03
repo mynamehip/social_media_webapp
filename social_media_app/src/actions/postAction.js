@@ -18,6 +18,15 @@ export const getAllPost = async (pageNumber) => {
   }
 };
 
+export const getPostByUser = async (userId, pageNumber) => {
+  try {
+    const response = await PostAPI.getPostByUser(userId, pageNumber);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const votePost = async (data) => {
   try {
     const response = await PostAPI.votePost(data);

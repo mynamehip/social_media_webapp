@@ -29,7 +29,8 @@ namespace social_media_be.Controllers
                 {
                     return BadRequest("Sign-up failed. Please try again.");
                 }
-                return Ok(new { result, model });
+                var user = await userRepo.GetByEmailAsync(model.Email);
+                return Ok(new { result, user });
             }
             catch (Exception ex)
             {

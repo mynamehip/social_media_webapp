@@ -71,8 +71,8 @@ namespace social_media_be.Repositories.AuthRepository
             if (!await roleManager.RoleExistsAsync(AppRoles.User))
             {
                 await roleManager.CreateAsync(new IdentityRole(AppRoles.User));
-                await userManager.AddToRoleAsync(user, AppRoles.User);
             }
+            await userManager.AddToRoleAsync(user, AppRoles.User);
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
@@ -80,7 +80,7 @@ namespace social_media_be.Repositories.AuthRepository
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var userRoles = await userManager.GetRolesAsync(user);
-            authClaims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
+            authClaims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role.ToString())));
             return CreateToken(user, authClaims);
         }
         public string CreateToken(User user, List<Claim> authClaims)

@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import Button from "../base/Button";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
 import { createPost } from "../../actions/postAction";
+import { UserContext } from "../../layouts/Home";
 
 const NewPostBox = (props) => {
   const descRef = useRef();
@@ -13,7 +13,7 @@ const NewPostBox = (props) => {
   const [textRow, setTextRow] = useState(6);
   const [image, setImage] = useState();
 
-  const { user } = useSelector((state) => state.authReducer.data);
+  const user = useContext(UserContext);
 
   const onUploadImage = (e) => {
     setTextRow(3);
