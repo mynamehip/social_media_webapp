@@ -12,18 +12,13 @@ export const createPost = async (formData) => {
   });
 };
 export const getAllPost = async (pageNumber) =>
-  hostAPI.get(`/api/Post/GetAllPost?pageNumber=${pageNumber}&pageSize=10`);
-export const getPostByUser = async (userId, pageNumber) => {
-  return await hostAPI.get(
-    `/api/Post/GetPostByUser?userId=${userId}&pageNumber=${pageNumber}&pageSize=10`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token()}`,
-      },
-    }
+  await hostAPI.get(
+    `/api/Post/GetAllPost?pageNumber=${pageNumber}&pageSize=10`
   );
-};
+export const getPostByUser = async (userId, pageNumber) =>
+  await hostAPI.get(
+    `/api/Post/GetPostByUser?userId=${userId}&pageNumber=${pageNumber}&pageSize=10`
+  );
 
 export const votePost = async (data) => {
   return await hostAPI.post("/api/Post/VotePost", data, {

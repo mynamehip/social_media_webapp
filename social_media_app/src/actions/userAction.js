@@ -18,33 +18,6 @@ export const getAllFollower = async (userId) => {
   }
 };
 
-// export const getAllFollowing = async (userId) => {
-//   try {
-//     const response = await UserAPI.getAllFollowing(userId);
-//     return response;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-// export const followUser = async (followerId, followingId) => {
-//   try {
-//     const response = await UserAPI.followUser(followerId, followingId);
-//     return response;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-// export const unfollowUser = async (followerId, followingId) => {
-//   try {
-//     const response = await UserAPI.unfollowUser(followerId, followingId);
-//     return response;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 export const getAllFollowing = (userId) => async (dispatch) => {
   try {
     const res = await UserAPI.getAllFollowing(userId);
@@ -69,5 +42,14 @@ export const unfollowUser = (followerId, user) => async (dispatch) => {
     dispatch({ type: "REMOVE_FOLLOWING", payload: user.id });
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const changeImage = async (formData) => {
+  try {
+    const response = await UserAPI.changeImage(formData);
+    return response;
+  } catch (error) {
+    throw error;
   }
 };

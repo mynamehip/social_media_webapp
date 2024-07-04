@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import SearchBar from "../components/base/SearchBar";
@@ -8,18 +8,12 @@ import FriendList from "../components/ui/FriendList";
 import SettingBar from "../components/ui/SettingBar";
 import NavBar from "../components/ui/NavBar";
 //import NewPostBox from "../components/ui/NewPostBox";
-import CreatePostBox from "../components/ui/CreatePostBox";
 
 export const UserContext = createContext();
 
 //import pic from "../assets/img/signupimg.jpg";
 
 const Home = () => {
-  const [isOpenNewPost, setOpenNewPost] = useState(false);
-  const handleOpenNewPost = () => {
-    setOpenNewPost(!isOpenNewPost);
-  };
-
   let user = localStorage.getItem("userData");
   if (user != null) {
     user = JSON.parse(user).user;
@@ -28,11 +22,7 @@ const Home = () => {
   return (
     <UserContext.Provider value={user}>
       <div className="w-full h-screen bg-gradient-to-br from-[#00F260] to-[#0575E6] p-5 pb-0 flex md:gap-5">
-        {isOpenNewPost && (
-          <CreatePostBox handleOpenNewPost={handleOpenNewPost}></CreatePostBox>
-        )}
-
-        <div className="left md:block hidden lg:w-3/12 md:w-4/12 h-full sticky top-5">
+        <div className="left md:block hidden lg:w-3/12 md:w-4/12 h-full">
           <div className="flex flex-col h-full justify-between gap-5 pb-5">
             <SearchBar></SearchBar>
             <TopList></TopList>
@@ -43,7 +33,7 @@ const Home = () => {
           <NavBar></NavBar>
           <Outlet></Outlet>
         </div>
-        <div className="right lg:block hidden lg:w-3/12 h-full sticky top-5">
+        <div className="right lg:block hidden lg:w-3/12 h-full">
           <div className="flex flex-col h-full justify-between gap-5 pb-5">
             {user === null ? (
               <div className="bg-glass min-h-80 flex items-center justify-center text-center text-lg ">
@@ -55,7 +45,7 @@ const Home = () => {
                 </span>
               </div>
             ) : (
-              <ProfileBox handleOpenNewPost={handleOpenNewPost}></ProfileBox>
+              <ProfileBox></ProfileBox>
             )}
             <FriendList></FriendList>
           </div>

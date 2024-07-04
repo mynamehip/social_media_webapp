@@ -33,3 +33,12 @@ export const unfollowUser = async (followerId, followingId) => {
     }
   );
 };
+
+export const changeImage = async (formData) => {
+  return await hostAPI.put("/api/User/ChangeUserImage", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token()}`,
+    },
+  });
+};

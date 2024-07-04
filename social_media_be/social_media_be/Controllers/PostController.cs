@@ -57,7 +57,6 @@ namespace social_media_be.Controllers
         }
 
         [HttpGet("GetPostByUser")]
-        [Authorize(Roles = AppRoles.User)]
         public async Task<IActionResult> GetPostByUser( string userId, int pageNumber, int pageSize)
         {
             try
