@@ -44,11 +44,6 @@ const CreatePostBox = (props) => {
       formData.append("image", image, uniqueFileName);
     }
 
-    let token = localStorage.getItem("userData");
-    if (token) {
-      token = JSON.parse(token).result;
-    }
-
     try {
       const response = await createPost(formData);
       if (response.status === 201) {

@@ -52,7 +52,7 @@ namespace social_media_be.Entities
             modelBuilder.Entity<Vote>()
                 .HasKey(v => v.VoteId);
 
-            // Post - Like (One-to-Many)
+            // Post - Vote (One-to-Many)
             modelBuilder.Entity<Post>()
                 .HasMany(p => p.Votes)
                 .WithOne(l => l.Post)

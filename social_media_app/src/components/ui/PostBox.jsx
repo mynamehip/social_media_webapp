@@ -27,7 +27,7 @@ const PostBox = ({ post }) => {
     <div>
       <div className="text-lg font-semibold leading-tight pb-4 flex items-center gap-3">
         <div className=" w-10 h-10">
-          <Avatar></Avatar>
+          <Avatar avatar={post.avatar}></Avatar>
         </div>
         {post.userName}
       </div>
@@ -39,11 +39,13 @@ const PostBox = ({ post }) => {
           post.imagePath && "pb-4"
         }`}
       >
-        <img
-          src={`${hostURL}${post.imagePath}`}
-          alt=""
-          className=" w-full max-h-96 rounded-md object-contain"
-        />
+        {post.imagePath && (
+          <img
+            src={hostURL + post.imagePath}
+            alt=""
+            className=" w-full max-h-96 rounded-md object-contain"
+          />
+        )}
       </div>
       <div className="flex items-center gap-1">
         <VoteBox post={post}></VoteBox>

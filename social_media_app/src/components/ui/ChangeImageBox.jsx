@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Button from "../base/Button";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
 import { UserContext } from "../../layouts/Home";
 import { changeImage } from "../../actions/userAction";
+import { createPost } from "../../actions/postAction";
 
 const ChangeImageBox = (props) => {
   const descRef = useRef();
@@ -15,6 +17,8 @@ const ChangeImageBox = (props) => {
   const [isCreatePost, setIsCreatePost] = useState(false);
 
   const user = useContext(UserContext);
+
+  const dispatch = useDispatch();
 
   const onUploadImage = (e) => {
     setTextRow(3);
@@ -49,14 +53,17 @@ const ChangeImageBox = (props) => {
     }
 
     try {
-      const response = await changeImage(formData);
-      if (response.status === 200) {
-        props.handleOpenForm();
+      if (isCreatePost) {
+        await createPost(formData);
+        //await changeImage(formData);
+        dispatch(changeImage(formData));
       } else {
-        console.log("Post created failed");
+        //await changeImage(formData);
+        dispatch(changeImage(formData));
       }
+      props.handleOpenForm();
     } catch (error) {
-      console.error("Error creating post:", error.response || error);
+      console.error(error.response || error);
     }
   };
 

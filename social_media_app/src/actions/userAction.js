@@ -9,6 +9,15 @@ export const getNewUsers = async (number) => {
   }
 };
 
+export const getUser = async (id) => {
+  try {
+    const response = await UserAPI.getUser(id);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getAllFollower = async (userId) => {
   try {
     const response = await UserAPI.getAllFollower(userId);
@@ -45,10 +54,10 @@ export const unfollowUser = (followerId, user) => async (dispatch) => {
   }
 };
 
-export const changeImage = async (formData) => {
+export const changeImage = (formData) => async (dispatch) => {
   try {
     const response = await UserAPI.changeImage(formData);
-    return response;
+    dispatch({ type: "UPDATE_USER", payload: response.data });
   } catch (error) {
     throw error;
   }

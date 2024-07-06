@@ -58,19 +58,20 @@ namespace social_media_be.Repositories.PostRepository
 
         public async Task<IEnumerable<PostModel>> GetAllPostsAsync(int pageNumber, int pageSize)
         {
-            var posts = await _context.Posts.OrderByDescending(p => p.CreatedAt).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            var postModels = _mapper.Map<List<PostModel>>(posts);
-            for (int i = 0; i < posts.Count; i++)
-            {
-                var user = await _userRepo.GetByIdAsync(postModels[i].UserId);
-                postModels[i].UserName = user.UserName;
-                if (!string.IsNullOrEmpty(posts[i].Image))
-                {
-                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", posts[i].Image);
-                    postModels[i].imagePath = imagePath;
-                }
-            }
-            return postModels;
+            IEnumerable<PostModel> result = await (from post in _context.Posts
+                                                   join user in _context.Users on post.UserId equals user.Id
+                                                   orderby post.CreatedAt descending
+                                                   select new PostModel
+                                                   {
+                                                       PostId = post.PostId,
+                                                       CreatedAt = post.CreatedAt,
+                                                       Content = post.Content,
+                                                       imagePath = post.Image,
+                                                       UserName = user.UserName,
+                                                       UserId = user.Id,
+                                                       avatar = user.avatar,
+                                                   }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return result;
         }
 
         public Task<PostModel> GetPostByIdAsync(string id)
@@ -80,19 +81,21 @@ namespace social_media_be.Repositories.PostRepository
 
         public async Task<IEnumerable<PostModel>> GetPostByUserAsync(string userId, int pageNumber, int pageSize)
         {
-            var posts = await _context.Posts.Where(p => p.UserId == userId).OrderByDescending(p => p.CreatedAt).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            var postModels = _mapper.Map<List<PostModel>>(posts);
-            for (int i = 0; i < posts.Count; i++)
-            {
-                var user = await _userRepo.GetByIdAsync(postModels[i].UserId);
-                postModels[i].UserName = user.UserName;
-                if (!string.IsNullOrEmpty(posts[i].Image))
-                {
-                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", posts[i].Image);
-                    postModels[i].imagePath = imagePath;
-                }
-            }
-            return postModels;
+            IEnumerable<PostModel> result = await (from post in _context.Posts
+                                                   join user in _context.Users on post.UserId equals user.Id
+                                                   orderby post.CreatedAt descending
+                                                   where user.Id == userId
+                                                   select new PostModel
+                                                   {
+                                                       PostId = post.PostId,
+                                                       CreatedAt = post.CreatedAt,
+                                                       Content = post.Content,
+                                                       imagePath = post.Image,
+                                                       UserName = user.UserName,
+                                                       UserId = user.Id,
+                                                       avatar = user.avatar,
+                                                   }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return result;
         }
 
         public async Task VotePostAsync(VoteModel model)
@@ -165,7 +168,6 @@ namespace social_media_be.Repositories.PostRepository
             try
             {
                 var result = await _context.Votes.SingleOrDefaultAsync(p => p.UserId == userId && p.PostId == postId);
-                //var result = await _context.Votes.FirstOrDefaultAsync(p => p.UserId == userId && p.PostId == postId);
 
                 if (result == null)
                 {

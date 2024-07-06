@@ -18,7 +18,7 @@ function App() {
 
         <Route path="/" element={<Home />}>
           <Route index element={<NewPostBox />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/profile/:userId" element={<Profile />}></Route>
         </Route>
       </Routes>
     </div>

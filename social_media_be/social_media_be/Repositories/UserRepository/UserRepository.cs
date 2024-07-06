@@ -25,7 +25,7 @@ namespace social_media_be.Repositories.UserRepository
             _context = context;
         }
 
-        public async Task ChangeUserImage(string userId, string type, string imagePath)
+        public async Task<UserModel> ChangeUserImage(string userId, string type, string imagePath)
         {
             try
             {
@@ -47,6 +47,7 @@ namespace social_media_be.Repositories.UserRepository
                     throw new Exception("Invalid image type. Allowed values are 'avatar' or 'cover'");
                 }
                 await _context.SaveChangesAsync();
+                return mapper.Map<UserModel>(user);
             }
             catch (Exception ex)
             {

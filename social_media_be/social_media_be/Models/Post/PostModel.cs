@@ -12,6 +12,8 @@ namespace social_media_be.Models.Post
         public string UserId { get; set; } = null!;
         public string? UserName { get; set; }
 
+        public string? avatar {  get; set; }
+
         public IFormFile? Image { get; set; }
 
         public string? imagePath { get; set; }

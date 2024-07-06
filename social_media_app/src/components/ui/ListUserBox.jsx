@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Avatar from "../base/Avatar";
 import Button from "../base/Button";
@@ -12,6 +13,11 @@ import {
 import { UserContext } from "../../layouts/Home";
 
 const ListUserBox = ({ users }) => {
+  const navigate = useNavigate();
+  const handleUserClick = (id) => {
+    navigate(`/profile/${id}`);
+  };
+
   const following = useSelector((state) => state.followingReducer);
   const dispatch = useDispatch();
   const user = useContext(UserContext);
@@ -59,6 +65,7 @@ const ListUserBox = ({ users }) => {
           <div
             key={index}
             className=" flex gap-4 items-center bg-white p-2 rounded-xl"
+            onClick={() => handleUserClick(item.id)}
           >
             <div className=" h-12 w-12">
               <Avatar avatar={item.avatar}></Avatar>

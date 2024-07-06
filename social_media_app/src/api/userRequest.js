@@ -1,5 +1,8 @@
 import { hostAPI, token } from ".";
 
+export const getUser = async (id) =>
+  hostAPI.get(`https://localhost:7293/api/User/GetUser?userId=${id}`);
+
 export const getNewUsers = async (number) =>
   hostAPI.get(`/api/User/GetNewUsers?count=${number}`);
 

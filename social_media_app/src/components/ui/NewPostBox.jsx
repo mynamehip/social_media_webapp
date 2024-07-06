@@ -4,7 +4,7 @@ import { getAllPost, getPostByUser } from "../../actions/postAction";
 import PostBox from "./PostBox";
 
 const NewPostBox = ({ userId }) => {
-  const scrollDiv = useRef();
+  const scroll = useRef();
 
   const [posts, setPosts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -33,9 +33,14 @@ const NewPostBox = ({ userId }) => {
   };
 
   useEffect(() => {
+    setPosts([]);
+    setPageNumber(1);
+  }, [userId]);
+
+  useEffect(() => {
     load(pageNumber);
     // eslint-disable-next-line
-  }, [pageNumber]);
+  }, [pageNumber, userId]);
 
   useEffect(() => {
     const handleScroll = (e) => {
@@ -49,7 +54,7 @@ const NewPostBox = ({ userId }) => {
       }
     };
 
-    const scrollableDiv = scrollDiv.current;
+    const scrollableDiv = scroll.current;
     if (scrollableDiv) {
       scrollableDiv.addEventListener("scroll", handleScroll);
     }
@@ -67,7 +72,7 @@ const NewPostBox = ({ userId }) => {
         userId === undefined ? "overflow-y-scroll " : ""
       }`}
       id="scrollableDivRef"
-      ref={scrollDiv}
+      ref={scroll}
     >
       {posts.map((post, index) => (
         <div key={index} className="w-full h-auto bg-glass p-4 flex flex-col">

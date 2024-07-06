@@ -7,6 +7,7 @@ import ProfileBox from "../components/ui/ProfileBox";
 import FriendList from "../components/ui/FriendList";
 import SettingBar from "../components/ui/SettingBar";
 import NavBar from "../components/ui/NavBar";
+import { useSelector } from "react-redux";
 //import NewPostBox from "../components/ui/NewPostBox";
 
 export const UserContext = createContext();
@@ -14,10 +15,7 @@ export const UserContext = createContext();
 //import pic from "../assets/img/signupimg.jpg";
 
 const Home = () => {
-  let user = localStorage.getItem("userData");
-  if (user != null) {
-    user = JSON.parse(user).user;
-  }
+  const user = useSelector((state) => state.authReducer?.data?.user ?? {});
 
   return (
     <UserContext.Provider value={user}>

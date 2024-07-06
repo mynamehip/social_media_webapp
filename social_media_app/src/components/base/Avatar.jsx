@@ -5,11 +5,10 @@ import { hostURL } from "../../api";
 import blankAvatar from "../../assets/img/blankavatar.png";
 
 const Avatar = ({ avatar }) => {
-  const avatarPath = hostURL + avatar;
   return (
     <div className=" h-full w-full">
       <img
-        src={avatar ? avatarPath : blankAvatar}
+        src={avatar === null ? blankAvatar : hostURL + avatar}
         alt=""
         className={` h-full w-full object-cover rounded-full`}
       />

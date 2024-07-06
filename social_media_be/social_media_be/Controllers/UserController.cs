@@ -54,8 +54,8 @@ namespace social_media_be.Controllers
                     }
                     imagePath = "/Images/" + model.image.FileName;
                 }
-                await _userRepository.ChangeUserImage(model.userId, model.type, imagePath);
-                return Ok("User image updated successfully.");
+                var res = await _userRepository.ChangeUserImage(model.userId, model.type, imagePath);
+                return StatusCode(StatusCodes.Status200OK, res);
             }
             catch (Exception ex)
             {

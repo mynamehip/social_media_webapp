@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CreatePostBox from "../ui/CreatePostBox";
 import Button from "../base/Button";
 import Avatar from "../base/Avatar";
+import { UserContext } from "../../layouts/Home";
+import { hostURL } from "../../api";
 
-const ProfileBox = (props) => {
+const ProfileBox = () => {
+  const user = useContext(UserContext);
+
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/profile");
+    navigate(`/profile/${user.id}`);
   };
 
   const [isOpenNewPost, setOpenNewPost] = useState(false);
@@ -24,11 +28,11 @@ const ProfileBox = (props) => {
       <div className=" bg-glass min-h-80">
         <div onClick={handleClick}>
           <div className=" h-28 bg-white rounded-xl m-2 flex items-center justify-center overflow-hidden">
-            {props.cover && (
-              <img src={props.cover} alt="" className="object-cover" />
+            {user.cover && (
+              <img src={hostURL + user.cover} alt="" className="object-cover" />
             )}
             <div className="absolute h-20 w-20 object-cover rounded-full top-20">
-              <Avatar></Avatar>
+              <Avatar avatar={user.avatar}></Avatar>
             </div>
           </div>
           <div className="flex flex-col items-center pt-10">
