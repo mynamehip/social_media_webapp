@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../../layouts/Home";
+import { UserContext } from "../../../layouts/Home";
 import {
   TbArrowBigUp,
   TbArrowBigDown,
@@ -12,7 +12,7 @@ import {
   votePost,
   updateVote,
   deleteVote,
-} from "../../actions/postAction";
+} from "../../../actions/postAction";
 
 const VoteBox = ({ post }) => {
   const [voteValue, setVoteValue] = useState(0);
@@ -35,9 +35,11 @@ const VoteBox = ({ post }) => {
     }
 
     try {
-      const response = await getVoteById(user.id, post.postId);
-      if (response.status === 200) {
-        setVoteValue(response.data.value);
+      if (user !== null) {
+        const response = await getVoteById(user.id, post.postId);
+        if (response.status === 200) {
+          setVoteValue(response.data.value);
+        }
       }
     } catch (error) {
       console.log(error);

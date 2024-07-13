@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { getAllPost, getPostByUser } from "../../actions/postAction";
-import PostBox from "./PostBox";
+import { getAllPost, getPostByUser } from "../../../actions/postAction";
+import PostBox from "../post/PostBox";
 
 const NewPostBox = ({ userId }) => {
   const scroll = useRef();

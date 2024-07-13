@@ -1,24 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 
-import Button from "../base/Button";
+import Button from "../../base/Button";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
-import { UserContext } from "../../layouts/Home";
-import { changeImage } from "../../actions/userAction";
-import { createPost } from "../../actions/postAction";
+import { createPost } from "../../../actions/postAction";
+import { UserContext } from "../../../layouts/Home";
 
-const ChangeImageBox = (props) => {
+const CreatePostBox = (props) => {
   const descRef = useRef();
   const imageRef = useRef();
 
   const [textRow, setTextRow] = useState(6);
   const [image, setImage] = useState();
-  const [isCreatePost, setIsCreatePost] = useState(false);
 
   const user = useContext(UserContext);
-
-  const dispatch = useDispatch();
 
   const onUploadImage = (e) => {
     setTextRow(3);
@@ -41,10 +36,7 @@ const ChangeImageBox = (props) => {
 
     const formData = new FormData();
     formData.append("userId", user.id);
-    formData.append("type", props.type);
-    if (isCreatePost) {
-      formData.append("content", descRef.current.value);
-    }
+    formData.append("content", descRef.current.value);
     formData.append("createdAt", new Date().toISOString());
 
     if (image) {
@@ -53,17 +45,15 @@ const ChangeImageBox = (props) => {
     }
 
     try {
-      if (isCreatePost) {
-        await createPost(formData);
-        //await changeImage(formData);
-        dispatch(changeImage(formData));
+      const response = await createPost(formData);
+      if (response.status === 201) {
+        props.handleOpenNewPost();
+        console.log("Post created successfully");
       } else {
-        //await changeImage(formData);
-        dispatch(changeImage(formData));
+        console.log("Post created failed:", response.error);
       }
-      props.handleOpenForm();
     } catch (error) {
-      console.error(error.response || error);
+      console.error("Error creating post:", error.response || error);
     }
   };
 
@@ -71,40 +61,30 @@ const ChangeImageBox = (props) => {
     <div className=" fixed top-0 left-0 w-screen h-screen z-50 bg-[#00000080]">
       <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white lg:w-1/2 md:w-4/5 w-[90%] min-h-[100px] rounded-xl">
         <div className=" text-center text-xl font-bold py-3 grid grid-cols-3">
-          <p className=" col-start-2">
-            {props.type === "avatar" ? "Change avatar" : "Change cover image"}
-          </p>
+          <p className=" col-start-2"> Create new post</p>
           <div className=" flex justify-end items-center text-2xl pr-4 text-gray-500">
-            <IoMdCloseCircle onClick={props.handleOpenForm}></IoMdCloseCircle>
+            <IoMdCloseCircle
+              onClick={props.handleOpenNewPost}
+            ></IoMdCloseCircle>
           </div>
         </div>
         <hr className=" border-gray-500" />
-        <div className=" ml-5 mt-4 flex items-center gap-2 ">
-          <input
-            type="checkbox"
-            className=" h-5 w-5"
-            onChange={() => setIsCreatePost((prev) => !prev)}
-          />
-          Create new post
-        </div>
-
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center px-4"
+          className="flex flex-col items-center px-4 pt-4"
         >
-          {isCreatePost && (
-            <textarea
-              name=""
-              id=""
-              className=" mt-4 w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
-              placeholder="Write somethings..."
-              ref={descRef}
-              rows={textRow}
-            ></textarea>
-          )}
+          <textarea
+            name=""
+            id=""
+            className=" w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
+            placeholder="Write somethings..."
+            ref={descRef}
+            rows={textRow}
+          ></textarea>
           <div className="imgDisplay">
             {image && (
               <div className=" relative">
+                {" "}
                 <img
                   src={URL.createObjectURL(image)}
                   alt=""
@@ -133,4 +113,4 @@ const ChangeImageBox = (props) => {
   );
 };
 
-export default ChangeImageBox;
+export default CreatePostBox;

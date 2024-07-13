@@ -23,6 +23,15 @@ const authReducer = (
         loading: false,
         error: true,
       };
+    case "SIGN_OUT":
+      localStorage.setItem("userData", null);
+      return {
+        ...state,
+        data: {
+          result: null,
+          user: null,
+        },
+      };
     case "UPDATE_USER":
       return {
         ...state,

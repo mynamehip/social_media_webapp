@@ -13,6 +13,7 @@ namespace social_media_be.Entities
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Follow> Follows { get; set; }
+        public DbSet<Message> Messages { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

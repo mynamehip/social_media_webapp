@@ -5,5 +5,7 @@
         public string userId { get; set; }
         public string type { get; set; }
         public IFormFile image { get; set; }
+
+        public string? oldImage { get; set; }
     }
 }

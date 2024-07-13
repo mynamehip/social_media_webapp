@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 
-import ListUserBox from "./ListUserBox";
-import { UserContext } from "../../layouts/Home";
-import { getNewUsers } from "../../actions/userAction";
+import ListUserBox from "../userList/ListUserBox";
+import { UserContext } from "../../../layouts/Home";
+import { getNewUsers } from "../../../actions/userAction";
 
 //import { listData } from "../../data/fakeList";
 
@@ -20,7 +20,7 @@ const TopList = () => {
       try {
         const res = await getNewUsers(numberUser);
         const newUserList = res.data;
-        setNewUsers(newUserList.filter((item) => item.id !== user.id));
+        setNewUsers(newUserList.filter((item) => item.id !== user?.id));
         if (res.data.length < numberUser) {
           setLoadAble(false);
           loadRef.current.innerText = "No more for loading";

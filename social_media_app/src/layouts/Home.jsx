@@ -2,11 +2,11 @@ import React, { createContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import SearchBar from "../components/base/SearchBar";
-import TopList from "../components/ui/TopList";
-import ProfileBox from "../components/ui/ProfileBox";
-import FriendList from "../components/ui/FriendList";
-import SettingBar from "../components/ui/SettingBar";
-import NavBar from "../components/ui/NavBar";
+import TopList from "../components/ui/userList/TopList";
+import ProfileBox from "../components/ui/profile/ProfileBox";
+import FriendList from "../components/ui/userList/FriendList";
+import SettingBar from "../components/ui/option/SettingBar";
+import NavBar from "../components/ui/option/NavBar";
 import { useSelector } from "react-redux";
 //import NewPostBox from "../components/ui/NewPostBox";
 
@@ -15,7 +15,7 @@ export const UserContext = createContext();
 //import pic from "../assets/img/signupimg.jpg";
 
 const Home = () => {
-  const user = useSelector((state) => state.authReducer?.data?.user ?? {});
+  const user = useSelector((state) => state.authReducer?.data?.user ?? null);
 
   return (
     <UserContext.Provider value={user}>
@@ -32,21 +32,21 @@ const Home = () => {
           <Outlet></Outlet>
         </div>
         <div className="right lg:block hidden lg:w-3/12 h-full">
-          <div className="flex flex-col h-full justify-between gap-5 pb-5">
-            {user === null ? (
-              <div className="bg-glass min-h-80 flex items-center justify-center text-center text-lg ">
-                <span>
-                  <Link to={"/sign-in"} className="underline text-blue-800">
-                    Sign-in
-                  </Link>{" "}
-                  to know more
-                </span>
-              </div>
-            ) : (
+          {user === null ? (
+            <div className="bg-glass h-full flex items-center justify-center text-center text-lg">
+              <span>
+                <Link to={"/sign-in"} className="underline text-blue-800">
+                  Sign-in
+                </Link>{" "}
+                to know more
+              </span>
+            </div>
+          ) : (
+            <div className="flex flex-col h-full justify-between gap-5 pb-5">
               <ProfileBox></ProfileBox>
-            )}
-            <FriendList></FriendList>
-          </div>
+              <FriendList></FriendList>
+            </div>
+          )}
         </div>
       </div>
     </UserContext.Provider>

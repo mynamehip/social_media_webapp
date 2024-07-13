@@ -1,9 +1,9 @@
 import React from "react";
 
-import Avatar from "../base/Avatar";
+import Avatar from "../../base/Avatar";
 import VoteBox from "./VoteBox";
 import { TbMessageCircle } from "react-icons/tb";
-import { hostURL } from "../../api";
+import { hostURL } from "../../../api";
 
 const PostBox = ({ post }) => {
   const handleContent = (content) => {

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import CreatePostBox from "../ui/CreatePostBox";
-import Button from "../base/Button";
-import Avatar from "../base/Avatar";
-import { UserContext } from "../../layouts/Home";
-import { hostURL } from "../../api";
+import CreatePostBox from "../post/CreatePostBox";
+import Button from "../../base/Button";
+import Avatar from "../../base/Avatar";
+import { UserContext } from "../../../layouts/Home";
+import { hostURL } from "../../../api";
 
 const ProfileBox = () => {
   const user = useContext(UserContext);

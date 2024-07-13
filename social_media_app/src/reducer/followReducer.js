@@ -10,6 +10,8 @@ const followingReducer = (state = initialState, action) => {
       return state.filter((follow) => follow.id !== action.payload);
     default:
       return state;
+    case "SIGN_OUT":
+      return null;
   }
 };
 

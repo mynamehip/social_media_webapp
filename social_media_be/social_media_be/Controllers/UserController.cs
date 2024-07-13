@@ -47,12 +47,21 @@ namespace social_media_be.Controllers
                 string imagePath = "";
                 if (model.image != null && model.image.Length > 0)
                 {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", model.image.FileName);
+                    imagePath = DateTime.Now.ToFileTime() + "_" + model.image.FileName;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", imagePath);
                     using (var stream = System.IO.File.Create(path))
                     {
                         await model.image.CopyToAsync(stream);
                     }
-                    imagePath = "/Images/" + model.image.FileName;
+                    imagePath = "/Images/" + imagePath;
+                }
+                if(model.oldImage != null && model.oldImage.Length > 0)
+                {
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", model.oldImage.TrimStart('/'));
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
                 }
                 var res = await _userRepository.ChangeUserImage(model.userId, model.type, imagePath);
                 return StatusCode(StatusCodes.Status200OK, res);

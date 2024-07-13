@@ -2,15 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Avatar from "../base/Avatar";
-import Button from "../base/Button";
+import Avatar from "../../base/Avatar";
+import Button from "../../base/Button";
 
 import {
   followUser,
   unfollowUser,
   getAllFollowing,
-} from "../../actions/userAction";
-import { UserContext } from "../../layouts/Home";
+} from "../../../actions/userAction";
+import { UserContext } from "../../../layouts/Home";
 
 const ListUserBox = ({ users }) => {
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ const ListUserBox = ({ users }) => {
     navigate(`/profile/${id}`);
   };
 
+  const user = useContext(UserContext);
+
   const following = useSelector((state) => state.followingReducer);
   const dispatch = useDispatch();
-  const user = useContext(UserContext);
 
   if (users === undefined) {
     users = following;
@@ -29,14 +30,15 @@ const ListUserBox = ({ users }) => {
   useEffect(() => {
     const load = async () => {
       try {
-        dispatch(getAllFollowing(user.id));
+        if (user !== null) dispatch(getAllFollowing(user.id));
       } catch (error) {
         console.log(error);
       }
     };
 
     load();
-  }, [dispatch, user.id]);
+    // eslint-disable-next-line
+  }, [dispatch, user?.id]);
 
   const isFollowing = (userId) => {
     return (

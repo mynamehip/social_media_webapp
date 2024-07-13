@@ -1,6 +1,34 @@
 {
   "Files": [
     {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648166458384029_OIP7.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648166458384029_OIP7.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648167663196138_OIP3.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648167663196138_OIP3.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648175737924949_OIP9.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648175737924949_OIP9.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648180004385377_OIP6.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648180004385377_OIP6.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648181841359181_OIP10.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648181841359181_OIP10.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648383687434645_OIP4.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648383687434645_OIP4.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133648383808367044_OIP9.jpg",
+      "PackagePath": "staticwebassets\\Images\\133648383808367044_OIP9.jpg"
+    },
+    {
       "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1719570703596_download.jpg",
       "PackagePath": "staticwebassets\\Images\\1719570703596_download.jpg"
     },
@@ -105,12 +133,36 @@
       "PackagePath": "staticwebassets\\Images\\1720264935955_OIP (2).jpg"
     },
     {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\R.jpg",
-      "PackagePath": "staticwebassets\\Images\\R.jpg"
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1720270646052_GOGOrSVaUAAXorn.jpg",
+      "PackagePath": "staticwebassets\\Images\\1720270646052_GOGOrSVaUAAXorn.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1720270969182_anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\1720270969182_anh-gai-xinh-vn-2.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1720320405826_OIP4.jpg",
+      "PackagePath": "staticwebassets\\Images\\1720320405826_OIP4.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1720320478204_OIP3.jpg",
+      "PackagePath": "staticwebassets\\Images\\1720320478204_OIP3.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\GOGOrSVaUAAXorn.jpg",
+      "PackagePath": "staticwebassets\\Images\\GOGOrSVaUAAXorn.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\OIP6.jpg",
+      "PackagePath": "staticwebassets\\Images\\OIP6.jpg"
     },
     {
       "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\anh-gai-xinh-vn-2.jpg",
       "PackagePath": "staticwebassets\\Images\\anh-gai-xinh-vn-2.jpg"
+    },
+    {
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\download.jpg",
+      "PackagePath": "staticwebassets\\Images\\download.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.social_media_be.props",

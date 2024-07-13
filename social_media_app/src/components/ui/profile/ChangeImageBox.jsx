@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
-import Button from "../base/Button";
+import Button from "../../base/Button";
 
 import { IoMdPhotos, IoMdCloseCircle } from "react-icons/io";
-import { createPost } from "../../actions/postAction";
-import { UserContext } from "../../layouts/Home";
+import { UserContext } from "../../../layouts/Home";
+import { changeImage } from "../../../actions/userAction";
+import { createPost } from "../../../actions/postAction";
 
-const CreatePostBox = (props) => {
+const ChangeImageBox = (props) => {
   const descRef = useRef();
   const imageRef = useRef();
 
   const [textRow, setTextRow] = useState(6);
   const [image, setImage] = useState();
+  const [isCreatePost, setIsCreatePost] = useState(false);
 
   const user = useContext(UserContext);
+
+  const dispatch = useDispatch();
 
   const onUploadImage = (e) => {
     setTextRow(3);
@@ -36,24 +41,33 @@ const CreatePostBox = (props) => {
 
     const formData = new FormData();
     formData.append("userId", user.id);
-    formData.append("content", descRef.current.value);
+    formData.append("type", props.type);
+    if (props.type === "avatar") {
+      formData.append("oldImage", user.avatar);
+    } else {
+      formData.append("oldImage", user.cover);
+    }
+    if (isCreatePost) {
+      formData.append("content", descRef.current.value);
+    }
     formData.append("createdAt", new Date().toISOString());
 
     if (image) {
-      const uniqueFileName = `${Date.now()}_${image.name}`;
-      formData.append("image", image, uniqueFileName);
+      formData.append("image", image);
     }
 
     try {
-      const response = await createPost(formData);
-      if (response.status === 201) {
-        props.handleOpenNewPost();
-        console.log("Post created successfully");
+      if (isCreatePost) {
+        await createPost(formData);
+        //await changeImage(formData);
+        dispatch(changeImage(formData));
       } else {
-        console.log("Post created failed:", response.error);
+        //await changeImage(formData);
+        dispatch(changeImage(formData));
       }
+      props.handleOpenForm();
     } catch (error) {
-      console.error("Error creating post:", error.response || error);
+      console.error(error.response || error);
     }
   };
 
@@ -61,30 +75,40 @@ const CreatePostBox = (props) => {
     <div className=" fixed top-0 left-0 w-screen h-screen z-50 bg-[#00000080]">
       <div className=" absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white lg:w-1/2 md:w-4/5 w-[90%] min-h-[100px] rounded-xl">
         <div className=" text-center text-xl font-bold py-3 grid grid-cols-3">
-          <p className=" col-start-2"> Create new post</p>
+          <p className=" col-start-2">
+            {props.type === "avatar" ? "Change avatar" : "Change cover image"}
+          </p>
           <div className=" flex justify-end items-center text-2xl pr-4 text-gray-500">
-            <IoMdCloseCircle
-              onClick={props.handleOpenNewPost}
-            ></IoMdCloseCircle>
+            <IoMdCloseCircle onClick={props.handleOpenForm}></IoMdCloseCircle>
           </div>
         </div>
         <hr className=" border-gray-500" />
+        <div className=" ml-5 mt-4 flex items-center gap-2 ">
+          <input
+            type="checkbox"
+            className=" h-5 w-5"
+            onChange={() => setIsCreatePost((prev) => !prev)}
+          />
+          Create new post
+        </div>
+
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center px-4 pt-4"
+          className="flex flex-col items-center px-4"
         >
-          <textarea
-            name=""
-            id=""
-            className=" w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
-            placeholder="Write somethings..."
-            ref={descRef}
-            rows={textRow}
-          ></textarea>
+          {isCreatePost && (
+            <textarea
+              name=""
+              id=""
+              className=" mt-4 w-full border rounded-lg border-gray-500 p-3 focus:outline-none"
+              placeholder="Write somethings..."
+              ref={descRef}
+              rows={textRow}
+            ></textarea>
+          )}
           <div className="imgDisplay">
             {image && (
               <div className=" relative">
-                {" "}
                 <img
                   src={URL.createObjectURL(image)}
                   alt=""
@@ -113,4 +137,4 @@ const CreatePostBox = (props) => {
   );
 };
 
-export default CreatePostBox;
+export default ChangeImageBox;

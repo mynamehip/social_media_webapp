@@ -23,3 +23,8 @@ export const signUp = (formData, navigate) => async (dispatch) => {
     dispatch({ type: "AUTH_FAILED" });
   }
 };
+
+export const signOut = (navigate) => (dispatch) => {
+  dispatch({ type: "SIGN_OUT" });
+  navigate("/");
+};

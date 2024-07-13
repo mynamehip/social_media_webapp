@@ -5,8 +5,12 @@ const Button = ({ onClick, fill, disabled, ref, css, children }) => {
     "bg-primary-600 text-white hover:bg-transparent hover:text-primary-600";
   const nonFillColor = "text-primary-600 hover:bg-primary-600 hover:text-white";
 
+  const handleClick = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <button
         onClick={onClick}
         disabled={disabled}
