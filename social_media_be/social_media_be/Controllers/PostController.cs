@@ -70,6 +70,21 @@ namespace social_media_be.Controllers
             }
         }
 
+        [HttpDelete("DeletePost")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> DeletePostById (string postId)
+        {
+            try
+            {
+                await _repo.DeletePostAsync(postId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    
         [HttpPost("VotePost")]
         [Authorize(Roles = AppRoles.User)]
         public async Task<IActionResult> VoteThePost(VoteModel model)

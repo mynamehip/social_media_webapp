@@ -15,7 +15,9 @@ export const UserContext = createContext();
 //import pic from "../assets/img/signupimg.jpg";
 
 const Home = () => {
-  const user = useSelector((state) => state.authReducer?.data?.user ?? null);
+  const user = useSelector((state) => {
+    return state.authReducer?.data?.user ?? null;
+  });
 
   return (
     <UserContext.Provider value={user}>

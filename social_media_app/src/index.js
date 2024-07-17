@@ -6,6 +6,7 @@ import "./App.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
+import { SignalRProvider } from "./components/ui/chat/ChatContext";
 import store from "./store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -13,9 +14,11 @@ root.render(
   //<React.StrictMode>
 
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <SignalRProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </SignalRProvider>
   </Provider>
 
   //</React.StrictMode>

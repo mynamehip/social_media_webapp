@@ -1,4 +1,5 @@
 import * as AuthAPI from "../api/authRequest";
+import { toast, Slide } from "react-toastify";
 
 export const signIn = (formData, navigate) => async (dispatch) => {
   dispatch({ type: "AUTH_START" });
@@ -8,6 +9,17 @@ export const signIn = (formData, navigate) => async (dispatch) => {
     navigate("/");
   } catch (error) {
     console.log(error);
+    toast.error(error.response.data, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+    });
     dispatch({ type: "AUTH_FAILED" });
   }
 };
@@ -20,6 +32,17 @@ export const signUp = (formData, navigate) => async (dispatch) => {
     navigate("/");
   } catch (error) {
     console.log(error);
+    toast.error(error.response.data, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+    });
     dispatch({ type: "AUTH_FAILED" });
   }
 };

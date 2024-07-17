@@ -27,7 +27,7 @@ namespace social_media_be.Repositories.PostRepository
             model.PostId = Guid.NewGuid().ToString();
             try
             {
-                if(model.Image != null && model.Image.Length > 0)
+                if (model.Image != null && model.Image.Length > 0)
                 {
                     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", model.Image.FileName);
                     using (var stream = File.Create(path))
@@ -77,6 +77,28 @@ namespace social_media_be.Repositories.PostRepository
         public Task<PostModel> GetPostByIdAsync(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task DeletePostAsync(string postId)
+        {
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.PostId == postId);
+            if (post != null)
+            {
+                if (!string.IsNullOrEmpty(post.Image))
+                {
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", post.Image.TrimStart('/'));
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        System.IO.File.Delete(fullPath);
+                    }
+                }
+                _context.Posts.Remove(post);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Error while delete. Please try later!");
+            }
         }
 
         public async Task<IEnumerable<PostModel>> GetPostByUserAsync(string userId, int pageNumber, int pageSize)

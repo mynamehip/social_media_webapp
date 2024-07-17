@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using social_media_be.Entities;
 using social_media_be.Helper;
 using social_media_be.Models.Auth;
@@ -15,14 +16,18 @@ namespace social_media_be.Repositories.AuthRepository
         private SignInManager<User> signInManager;
         private IConfiguration configuration;
         private RoleManager<IdentityRole> roleManager;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public AccountRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager)
+        public AccountRepository(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, RoleManager<IdentityRole> roleManager, IHttpClientFactory clientFactory)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.configuration = configuration;
             this.roleManager = roleManager;
+            this._clientFactory = clientFactory;
         }
+
+        private const string ZeroBounceApiKey = "bed9313acd5545ce896a1d256ed7e465";
 
         public async Task<string> SignInAsync(SignInModel model)
         {
@@ -55,7 +60,12 @@ namespace social_media_be.Repositories.AuthRepository
             var existingUser = await userManager.FindByEmailAsync(model.Email);
             if (existingUser != null)
             {
-                throw new Exception("Email already in use");
+                throw new Exception("Email already in used!");
+            }
+            var checkEmailExist = await CheckEmailExist(model.Email);
+            if (checkEmailExist == false)
+            {
+                throw new Exception("Email not exist");
             }
             var user = new User
             {
@@ -94,6 +104,37 @@ namespace social_media_be.Repositories.AuthRepository
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha512Signature)
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public class ZeroBounceVerificationResponse
+        {
+            public string Status { get; set; }
+        }
+
+        public async Task<bool> CheckEmailExist(string email)
+        {
+            var apiUrl = $"https://api.zerobounce.net/v2/validate?email={email}&api_key={ZeroBounceApiKey}";
+            try
+            {
+                var client = _clientFactory.CreateClient();
+                var response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var verificationResult = JsonConvert.DeserializeObject<ZeroBounceVerificationResponse>(content);
+
+                    if (verificationResult.Status == "valid")
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
     }

@@ -1,41 +1,21 @@
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import React, { useEffect, useState, useRef } from "react";
 
 import Avatar from "../../base/Avatar";
 
 import { getMessage } from "../../../actions/chatAction";
-import { hostURL } from "../../../api/index";
+import { useChatContext } from "./ChatContext";
 
 const ChatBox = ({ user, friend }) => {
-  const [connection, setConnection] = useState();
-  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
+  const { messages, setMessages, connection } = useChatContext();
+
+  const inputRef = useRef();
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    const test = async () => {
-      const conn = new HubConnectionBuilder()
-        .withUrl(`${hostURL}/Chat?userId=${user.id}`)
-        .configureLogging(LogLevel.Information)
-        .build();
-
-      conn.on(
-        "ReceiveMessage",
-        (messageText, senderId, receiverId, timestamp) => {
-          changeMessageList({ messageText, senderId, receiverId, timestamp });
-        }
-      );
-      await conn.start();
-      setConnection(conn);
-    };
-
-    test();
-  }, [user.id]);
 
   useEffect(() => {
     const load = async () => {
@@ -47,7 +27,8 @@ const ChatBox = ({ user, friend }) => {
       }
     };
     load();
-  }, [user.id, friend.id]);
+    // eslint-disable-next-line
+  }, [friend.id]);
 
   useEffect(() => {
     scrollToBottom();
@@ -64,9 +45,8 @@ const ChatBox = ({ user, friend }) => {
   };
 
   const sendMessage = async () => {
-    if (connection) {
+    if (connection && newMessage.trim().length > 0) {
       try {
-        console.log(newMessage);
         await connection.invoke("SendMessage", user.id, friend.id, newMessage);
         changeMessageList({
           messageText: newMessage,
@@ -75,6 +55,7 @@ const ChatBox = ({ user, friend }) => {
           timestamp: Date.now,
         });
         setNewMessage("");
+        inputRef.current.value = "";
       } catch (error) {
         console.error("Sending message failed: ", error);
       }
@@ -96,10 +77,10 @@ const ChatBox = ({ user, friend }) => {
           messages.map((item, index) => (
             <div
               key={index}
-              className={` bg-white max-w-[80%] px-3 py-2 m-2 rounded-3xl ${
+              className={` max-w-[80%] px-3 py-2 m-2 rounded-3xl ${
                 item.senderId === user.id
-                  ? "self-end bg-blue-800 text-gray-50"
-                  : "self-start"
+                  ? "self-end bg-blue-800 text-white"
+                  : "self-start bg-white"
               }`}
             >
               {item.messageText}
@@ -111,6 +92,7 @@ const ChatBox = ({ user, friend }) => {
         <input
           className=" flex-1 rounded-full h-10 px-4"
           type="text"
+          ref={inputRef}
           onChange={(e) => setNewMessage(e.target.value)}
         />
         <button

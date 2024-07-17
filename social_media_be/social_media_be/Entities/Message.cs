@@ -7,5 +7,6 @@
         public string ReceiverId { get; set; }
         public string MessageText { get; set; }
         public DateTime Timestamp { get; set; }
+        public bool isReaded { get; set; }
     }
 }

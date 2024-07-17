@@ -4,13 +4,14 @@ import { useParams, Link } from "react-router-dom";
 import Avatar from "../components/base/Avatar";
 import Button from "../components/base/Button";
 import NewPostBox from "../components/ui/post/NewPostBox";
-import UserInforBox from "../components/ui/profile/UserInforBox";
+//import UserInforBox from "../components/ui/profile/UserInforBox";
 import ChangeImageBox from "../components/ui/profile/ChangeImageBox";
 
 import { FaPen } from "react-icons/fa";
 import { hostURL } from "../api";
 import { UserContext } from "./Home";
 import { getUser } from "../actions/userAction";
+import { getUserActivities } from "../actions/userAction";
 
 const Profile = () => {
   const { userId } = useParams();
@@ -23,6 +24,11 @@ const Profile = () => {
   const [user, setUser] = useState(mainUser);
   const [isOpenNewPost, setOpenNewPost] = useState(false);
   const [type, setType] = useState();
+  const [userActivities, setUserActivities] = useState({
+    follower: 0,
+    following: 0,
+    postNumber: 0,
+  });
 
   useEffect(() => {
     const loadUser = async () => {
@@ -38,6 +44,21 @@ const Profile = () => {
       }
     };
 
+    const loadUserActivities = async () => {
+      try {
+        var result;
+        if (userId !== mainUser.id) {
+          result = await getUserActivities(userId);
+        } else {
+          result = await getUserActivities(mainUser.id);
+        }
+        setUserActivities(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loadUserActivities();
     loadUser();
     // eslint-disable-next-line
   }, [userId, mainUser]);
@@ -104,23 +125,27 @@ const Profile = () => {
             </div>
             <div className=" py-2 pr-7 flex justify-between items-center pl-40">
               <div className=" text-2xl font-bold">{user.userName}</div>
-              <Button fill>Change information</Button>
+              {userId === mainUser.id ? (
+                <Button fill>Change information</Button>
+              ) : (
+                <div className=" h-10"></div>
+              )}
             </div>
-            <div className=" border-t-2 border-white/40">
+            {/* <div className=" border-t-2 border-white/40">
               <UserInforBox></UserInforBox>
-            </div>
+            </div> */}
             <div className="flex p-2 border-t-2 border-white/40">
               <div className=" w-1/3 p-1 flex flex-col items-center hover:cursor-pointer hover:bg-[#ffffff80] rounded-xl">
                 <div className=" text-base font-semibold">Following</div>
-                <div className=" text-sm">5000000000</div>
+                <div className=" text-sm">{userActivities.following}</div>
               </div>
               <div className=" w-1/3 p-1 flex flex-col items-center hover:cursor-pointer hover:bg-[#ffffff80] rounded-xl">
                 <div className=" text-base font-semibold">Follower</div>
-                <div className=" text-sm">5000000000</div>
+                <div className=" text-sm">{userActivities.follower}</div>
               </div>
               <div className=" w-1/3 p-1 flex flex-col items-center hover:cursor-pointer hover:bg-[#ffffff80] rounded-xl">
                 <div className=" text-base font-semibold">Post</div>
-                <div className=" text-sm">0</div>
+                <div className=" text-sm">{userActivities.postNumber}</div>
               </div>
             </div>
           </div>

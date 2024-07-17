@@ -21,7 +21,7 @@ const Input = ({
         onBlur={handleValidate}
         className="boder border-b-2 bg-transparent border-b-slate-950 outline-none focus:outline-none w-full px-2"
       />
-      <div className=" text-sm text-red min-h-8 my-2">{errorMessage}</div>
+      <div className=" text-sm text-red-500 min-h-8 my-2">{errorMessage}</div>
     </div>
   );
 };

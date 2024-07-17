@@ -18,6 +18,15 @@ export const getUser = async (id) => {
   }
 };
 
+export const getUserActivities = async (userId) => {
+  try {
+    const response = await UserAPI.getUserActivities(userId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getAllFollower = async (userId) => {
   try {
     const response = await UserAPI.getAllFollower(userId);

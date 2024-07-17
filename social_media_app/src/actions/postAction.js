@@ -27,6 +27,15 @@ export const getPostByUser = async (userId, pageNumber) => {
   }
 };
 
+export const deletePost = async (postId) => {
+  try {
+    const response = await PostAPI.deletePost(postId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const votePost = async (data) => {
   try {
     const response = await PostAPI.votePost(data);

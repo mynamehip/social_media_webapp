@@ -32,6 +32,12 @@ const NewPostBox = ({ userId }) => {
     }
   };
 
+  const reload = () => {
+    setPosts([]);
+    setPageNumber(1);
+    load(1);
+  };
+
   useEffect(() => {
     setPosts([]);
     setPageNumber(1);
@@ -76,7 +82,7 @@ const NewPostBox = ({ userId }) => {
     >
       {posts.map((post, index) => (
         <div key={index} className="w-full h-auto bg-glass p-4 flex flex-col">
-          <PostBox post={post}></PostBox>
+          <PostBox post={post} loadMethod={reload}></PostBox>
         </div>
       ))}
     </div>

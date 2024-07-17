@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using social_media_be.Entities;
 
@@ -11,9 +12,10 @@ using social_media_be.Entities;
 namespace social_media_be.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240714151703_fix-message_table")]
+    partial class fixmessage_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,12 +206,6 @@ namespace social_media_be.Migrations
 
             modelBuilder.Entity("social_media_be.Entities.Message", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<string>("MessageText")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -227,8 +223,6 @@ namespace social_media_be.Migrations
 
                     b.Property<bool>("isReaded")
                         .HasColumnType("bit");
-
-                    b.HasKey("Id");
 
                     b.ToTable("Messages");
                 });
@@ -419,7 +413,7 @@ namespace social_media_be.Migrations
                     b.HasOne("social_media_be.Entities.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("social_media_be.Entities.User", "User")
@@ -468,7 +462,7 @@ namespace social_media_be.Migrations
                     b.HasOne("social_media_be.Entities.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("social_media_be.Entities.User", "User")

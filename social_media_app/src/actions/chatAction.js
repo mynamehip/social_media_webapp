@@ -8,3 +8,21 @@ export const getMessage = async (userId, friendId) => {
     throw error;
   }
 };
+
+export const getUnReaded = async (userId) => {
+  try {
+    const response = await ChatAPI.getUnReaded(userId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getChatHistory = async (userId) => {
+  try {
+    const response = await ChatAPI.getChatHistory(userId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

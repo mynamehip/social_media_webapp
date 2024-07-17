@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 import Home from "./layouts/Home";
 import Auth from "./layouts/Auth";
@@ -23,6 +24,7 @@ function App() {
         </Route>
         <Route path="/chat" element={<Chat />}></Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

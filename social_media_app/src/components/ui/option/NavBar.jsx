@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
 import { FaHome, FaUserCircle } from "react-icons/fa";
-import { AiFillRead, AiFillBell } from "react-icons/ai";
+import { FaMessage, FaVideo } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../layouts/Home";
+import { useChatContext } from "../chat/ChatContext";
 
 const NavBar = () => {
   const user = useContext(UserContext) || {};
+
+  const { hasNewMessages } = useChatContext();
 
   const [activeIcon, setActiveIcon] = useState("home");
 
@@ -39,14 +42,19 @@ const NavBar = () => {
       </div>
       <div
         onClick={() => switchToHome(`/chat`, "chat")}
-        className={`w-1/4 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
+        className={`w-1/4 text-xl flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
           "chat"
         )}`}
       >
-        <AiFillRead />
+        <div className=" relative">
+          <FaMessage />
+          {hasNewMessages === true ? (
+            <div className=" w-4 h-4 rounded-full bg-red-500 absolute top-[-0.5rem] right-[-0.5rem]"></div>
+          ) : null}
+        </div>
       </div>
       <div className=" w-1/4 flex justify-center hover:bg-[#ffffff80] rounded-2xl">
-        <AiFillBell />
+        <FaVideo />
       </div>
     </div>
   );

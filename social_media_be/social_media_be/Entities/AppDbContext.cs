@@ -36,7 +36,7 @@ namespace social_media_be.Entities
                 .HasMany(p => p.Comments)
                 .WithOne(c => c.Post)
                 .HasForeignKey(c => c.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Comment
             modelBuilder.Entity<Comment>()
@@ -58,7 +58,7 @@ namespace social_media_be.Entities
                 .HasMany(p => p.Votes)
                 .WithOne(l => l.Post)
                 .HasForeignKey(l => l.PostId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
 
             //Follow
             modelBuilder.Entity<Follow>()
@@ -71,10 +71,11 @@ namespace social_media_be.Entities
                .HasForeignKey(f => f.FollowerId)
                .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<Follow>()
-                .HasOne(f => f.Following)
-                .WithMany(u => u.Followers)
-                .HasForeignKey(f => f.FollowingId)
-                .OnDelete(DeleteBehavior.NoAction);
+               .HasOne(f => f.Following)
+               .WithMany(u => u.Followers)
+               .HasForeignKey(f => f.FollowingId)
+               .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

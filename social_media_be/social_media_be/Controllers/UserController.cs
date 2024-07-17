@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using social_media_be.Entities;
 using social_media_be.Helper;
 using social_media_be.Models.User;
+using social_media_be.Repositories.PostRepository;
 using social_media_be.Repositories.UserRepository;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -15,9 +16,12 @@ namespace social_media_be.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-        public UserController(IUserRepository userRepository)
+        private readonly IPostRepository _postRepository;
+
+        public UserController(IUserRepository userRepository, IPostRepository postRepository)
         {
             _userRepository = userRepository;
+            _postRepository = postRepository;
         }
 
         [HttpGet("GetUser")]
@@ -149,6 +153,29 @@ namespace social_media_be.Controllers
             {
                 await _userRepository.UnfollowUserAsync(followerId, followingId);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetUserActivities")]
+        public async Task<IActionResult> GetUserActivities(string userId)
+        {
+            try
+            {
+                var follower = await _userRepository.GetFollowersAsync(userId);
+                var following = await _userRepository.GetFollowingAsync(userId);
+                var postNumber = await _postRepository.GetPostByUserAsync(userId, 1, 10000);
+                var result = new
+                {
+                    follower = follower.Count(),
+                    following = following.Count(),
+                    postNumber = postNumber.Count()
+                };
+
+                return Ok(result);
             }
             catch (Exception ex)
             {

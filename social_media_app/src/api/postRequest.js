@@ -19,6 +19,13 @@ export const getPostByUser = async (userId, pageNumber) =>
   await hostAPI.get(
     `/api/Post/GetPostByUser?userId=${userId}&pageNumber=${pageNumber}&pageSize=10`
   );
+export const deletePost = async (postId) => {
+  return await hostAPI.delete(`/api/Post/DeletePost?postId=${postId}`, {
+    headers: {
+      Authorization: `Bearer ${token()}`,
+    },
+  });
+};
 
 export const votePost = async (data) => {
   return await hostAPI.post("/api/Post/VotePost", data, {

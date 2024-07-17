@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { Slide, toast } from "react-toastify";
 
 import Button from "../../base/Button";
 
@@ -48,7 +49,18 @@ const CreatePostBox = (props) => {
       const response = await createPost(formData);
       if (response.status === 201) {
         props.handleOpenNewPost();
-        console.log("Post created successfully");
+        props.onCreatePost();
+        toast.success("Create successed!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
       } else {
         console.log("Post created failed:", response.error);
       }

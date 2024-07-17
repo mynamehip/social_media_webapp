@@ -1,10 +1,14 @@
 import { hostAPI, token } from ".";
 
 export const getUser = async (id) =>
-  hostAPI.get(`https://localhost:7293/api/User/GetUser?userId=${id}`);
+  await hostAPI.get(`https://localhost:7293/api/User/GetUser?userId=${id}`);
 
 export const getNewUsers = async (number) =>
-  hostAPI.get(`/api/User/GetNewUsers?count=${number}`);
+  await hostAPI.get(`/api/User/GetNewUsers?count=${number}`);
+
+export const getUserActivities = async (userId) => {
+  return await hostAPI.get(`/api/User/GetUserActivities?userId=${userId}`);
+};
 
 export const getAllFollower = async (userId) => {
   return await hostAPI.get(`/api/User/GetAllFollower?userId=${userId}`);
