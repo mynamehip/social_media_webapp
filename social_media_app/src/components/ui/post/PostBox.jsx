@@ -3,7 +3,7 @@ import { toast, Slide } from "react-toastify";
 
 import Avatar from "../../base/Avatar";
 import VoteBox from "./VoteBox";
-import { TbMessageCircle } from "react-icons/tb";
+// import { TbMessageCircle } from "react-icons/tb";
 import { FaCircleXmark } from "react-icons/fa6";
 import { UserContext } from "../../../layouts/Home";
 import ConfrimDialog from "../option/ConfrimDialog";
@@ -98,10 +98,10 @@ const PostBox = ({ post, loadMethod }) => {
       </div>
       <div className="flex items-center gap-1">
         <VoteBox post={post}></VoteBox>
-        <div className=" text-xl pl-5">
+        {/* <div className=" text-xl pl-5">
           <TbMessageCircle />
         </div>
-        {post.comment}
+        {post.comment} */}
       </div>
     </div>
   );

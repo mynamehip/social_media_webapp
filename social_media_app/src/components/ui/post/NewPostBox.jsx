@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { getAllPost, getPostByUser } from "../../../actions/postAction";
 import PostBox from "../post/PostBox";
+import { RiLoader4Line } from "react-icons/ri";
 
 const NewPostBox = ({ userId }) => {
   const scroll = useRef();
@@ -74,7 +75,7 @@ const NewPostBox = ({ userId }) => {
 
   return (
     <div
-      className={`w-full flex-1 space-y-5 ${
+      className={`w-full flex-1 space-y-5 overflow-x-hidden ${
         userId === undefined ? "overflow-y-scroll " : ""
       }`}
       id="scrollableDivRef"
@@ -85,6 +86,11 @@ const NewPostBox = ({ userId }) => {
           <PostBox post={post} loadMethod={reload}></PostBox>
         </div>
       ))}
+      {isLoading && (
+        <div className=" flex-1 text-6xl text-white animate-spin flex justify-center items-center">
+          <RiLoader4Line />
+        </div>
+      )}
     </div>
   );
 };

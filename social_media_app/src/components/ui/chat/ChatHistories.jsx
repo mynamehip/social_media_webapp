@@ -7,11 +7,11 @@ const ChatHistories = ({ handleClickUser }) => {
   const { unread, chats } = useChatContext();
 
   return (
-    <div className=" flex flex-col gap-2 px-5 pb-2 overflow-y-scroll">
+    <div className=" flex flex-col gap-3 pb-2 overflow-y-scroll no-scrollbar">
       {chats?.map((item, index) => (
         <div
           key={index}
-          className=" flex gap-4 items-center bg-white p-2 rounded-xl border-4"
+          className=" flex gap-4 items-center bg-white p-2 rounded-xl"
           onClick={() => handleClickUser(item.id)}
         >
           <div className=" h-12 w-12">

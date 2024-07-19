@@ -1,7 +1,7 @@
 import { hostAPI, token } from ".";
 
 export const getUser = async (id) =>
-  await hostAPI.get(`https://localhost:7293/api/User/GetUser?userId=${id}`);
+  await hostAPI.get(`/api/User/GetUser?userId=${id}`);
 
 export const getNewUsers = async (number) =>
   await hostAPI.get(`/api/User/GetNewUsers?count=${number}`);

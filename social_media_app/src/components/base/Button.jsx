@@ -15,7 +15,7 @@ const Button = ({ onClick, fill, disabled, ref, css, children }) => {
         onClick={onClick}
         disabled={disabled}
         ref={ref}
-        className={`border border-primary-600 py-2 px-5 rounded-full font-bold ${
+        className={`border border-primary-600 py-1 px-2 lg:py-2 lg:px-5 rounded-full font-bold ${
           fill ? fillColor : nonFillColor
         } ${css}`}
       >

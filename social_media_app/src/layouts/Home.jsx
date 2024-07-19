@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import SearchBar from "../components/base/SearchBar";
@@ -7,6 +7,7 @@ import ProfileBox from "../components/ui/profile/ProfileBox";
 import FriendList from "../components/ui/userList/FriendList";
 import SettingBar from "../components/ui/option/SettingBar";
 import NavBar from "../components/ui/option/NavBar";
+import MiniSideMenu from "../components/ui/option/MiniSideMenu";
 import { useSelector } from "react-redux";
 //import NewPostBox from "../components/ui/NewPostBox";
 
@@ -19,10 +20,12 @@ const Home = () => {
     return state.authReducer?.data?.user ?? null;
   });
 
+  const [openSideMenu, setOpenSideMenu] = useState(false);
+
   return (
     <UserContext.Provider value={user}>
       <div className="w-full h-screen bg-gradient-to-br from-[#00F260] to-[#0575E6] p-5 pb-0 flex md:gap-5">
-        <div className="left md:block hidden lg:w-3/12 md:w-4/12 h-full">
+        <div className="left lg:block hidden lg:w-3/12 h-full">
           <div className="flex flex-col h-full justify-between gap-5 pb-5">
             <SearchBar></SearchBar>
             <TopList></TopList>
@@ -30,10 +33,12 @@ const Home = () => {
           </div>
         </div>
         <div className="middle lg:w-6/12 md:w-8/12 w-full flex-1 flex flex-col gap-5">
-          <NavBar></NavBar>
+          <NavBar
+            handleOpenMenu={() => setOpenSideMenu((prev) => !prev)}
+          ></NavBar>
           <Outlet></Outlet>
         </div>
-        <div className="right lg:block hidden lg:w-3/12 h-full">
+        <div className="right md:block hidden lg:w-3/12 md:w-4/12 h-full">
           {user === null ? (
             <div className="bg-glass h-full flex items-center justify-center text-center text-lg">
               <span>
@@ -50,6 +55,10 @@ const Home = () => {
             </div>
           )}
         </div>
+        <MiniSideMenu
+          handleOpenMenu={() => setOpenSideMenu((prev) => !prev)}
+          openSideMenu={openSideMenu}
+        ></MiniSideMenu>
       </div>
     </UserContext.Provider>
   );

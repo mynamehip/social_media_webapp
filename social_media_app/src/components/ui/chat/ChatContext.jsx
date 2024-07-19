@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { getUnReaded } from "../../../actions/chatAction";
 import { getUser } from "../../../actions/userAction";
+import { hostURL } from "../../../api";
 
 const SignalRContext = createContext();
 
@@ -34,7 +35,7 @@ export const SignalRProvider = ({ children }) => {
       }
 
       const conn = new HubConnectionBuilder()
-        .withUrl(`https://localhost:7293/Chat?userId=${user?.id}`)
+        .withUrl(`${hostURL}/Chat?userId=${user?.id}`)
         .configureLogging(LogLevel.Information)
         .withAutomaticReconnect()
         .build();

@@ -6,6 +6,7 @@ import Button from "../components/base/Button";
 import ChatBox from "../components/ui/chat/ChatBox";
 import FollowingList from "../components/ui/chat/FollowingList";
 import ChatHistories from "../components/ui/chat/ChatHistories";
+import MiniChatMenu from "../components/ui/chat/MiniChatMenu";
 
 import { getUser } from "../actions/userAction";
 import { useChatContext } from "../components/ui/chat/ChatContext";
@@ -43,17 +44,34 @@ const Chat = () => {
   };
 
   return (
-    <div className=" w-full h-screen flex gap-5 p-5 bg-gray-900">
-      <div className=" w-1/4 h-full flex flex-col gap-5">
-        <div className="ml-5">
+    <div className=" w-full h-screen flex sm:flex-row flex-col gap-5 sm:p-5 bg-gray-900">
+      <MiniChatMenu
+        chat={
+          <ChatHistories
+            user={user}
+            handleClickUser={handleClickUser}
+          ></ChatHistories>
+        }
+        following={
+          <FollowingList handleClickUser={handleClickUser}></FollowingList>
+        }
+        handleReturn={handleReturn}
+      ></MiniChatMenu>
+      <div className=" hidden md:flex md:w-2/5 lg:w-1/4 h-full flex-col gap-5 overflow-hidden">
+        <div className=" flex justify-between">
           <Button onClick={handleReturn}>Home</Button>
         </div>
-        <ChatHistories
-          user={user}
-          handleClickUser={handleClickUser}
-        ></ChatHistories>
+        <div className=" md:h-1/2">
+          <ChatHistories
+            user={user}
+            handleClickUser={handleClickUser}
+          ></ChatHistories>
+        </div>
+        <div className=" block md:h-1/2 lg:hidden">
+          <FollowingList handleClickUser={handleClickUser}></FollowingList>
+        </div>
       </div>
-      <div className=" w-2/4 h-full bg-glass">
+      <div className=" w-full md:w-3/5 lg:w-2/4 h-full bg-glass">
         {friend !== undefined ? (
           <ChatBox user={user} friend={friend}></ChatBox>
         ) : (
@@ -62,7 +80,7 @@ const Chat = () => {
           </div>
         )}
       </div>
-      <div className=" w-1/4 h-full">
+      <div className=" lg:block hidden w-1/4 h-full">
         <FollowingList handleClickUser={handleClickUser}></FollowingList>
       </div>
     </div>

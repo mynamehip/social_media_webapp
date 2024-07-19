@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import Avatar from "../../base/Avatar";
+import { IoIosSend } from "react-icons/io";
 
 import { getMessage } from "../../../actions/chatAction";
 import { useChatContext } from "./ChatContext";
@@ -97,9 +98,9 @@ const ChatBox = ({ user, friend }) => {
         />
         <button
           onClick={sendMessage}
-          className=" bg-[#0575E6] h-10 px-4 rounded-full"
+          className=" bg-[#0575E6] h-10 w-10 rounded-full text-2xl flex justify-center items-center"
         >
-          Send
+          <IoIosSend />
         </button>
       </div>
     </div>

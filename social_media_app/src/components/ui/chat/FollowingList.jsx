@@ -23,7 +23,7 @@ const FollowingList = ({ handleClickUser }) => {
   // }, [dispatch, user.id]);
 
   return (
-    <div className=" flex flex-col gap-2 px-5 pb-2">
+    <div className=" flex flex-col gap-3 pb-2 overflow-y-scroll no-scrollbar">
       {following?.map((item, index) => (
         <div
           key={index}
