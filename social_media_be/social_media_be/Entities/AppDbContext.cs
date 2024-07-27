@@ -75,7 +75,6 @@ namespace social_media_be.Entities
                .WithMany(u => u.Followers)
                .HasForeignKey(f => f.FollowingId)
                .OnDelete(DeleteBehavior.NoAction);
-
         }
     }
 }

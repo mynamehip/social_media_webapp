@@ -33,7 +33,7 @@ const NavBar = ({ handleOpenMenu }) => {
       <div className="w-full bg-glass h-10 text-white flex items-center text-2xl px-2">
         <div
           onClick={() => switchToHome("/", "home")}
-          className={` w-1/4 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
+          className={` lg:w-1/4 w-1/3 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
             "home"
           )} `}
         >
@@ -41,7 +41,7 @@ const NavBar = ({ handleOpenMenu }) => {
         </div>
         <div
           onClick={() => switchToHome(`/profile/${user?.id}`, "profile")}
-          className={` w-1/4 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
+          className={` lg:w-1/4 w-1/3 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
             "profile"
           )}`}
         >
@@ -49,7 +49,7 @@ const NavBar = ({ handleOpenMenu }) => {
         </div>
         <div
           onClick={() => switchToHome(`/chat`, "chat")}
-          className={`w-1/4 text-xl flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
+          className={`lg:w-1/4 w-1/3 text-xl flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
             "chat"
           )}`}
         >
@@ -60,7 +60,10 @@ const NavBar = ({ handleOpenMenu }) => {
             ) : null}
           </div>
         </div>
-        <div className=" w-1/4 flex justify-center hover:bg-[#ffffff80] rounded-2xl">
+        <div
+          onClick={() => switchToHome(`/watch`, "watch")}
+          className=" lg:w-1/4 lg:flex justify-center hover:bg-[#ffffff80] rounded-2xl hidden"
+        >
           <FaClapperboard />
         </div>
       </div>

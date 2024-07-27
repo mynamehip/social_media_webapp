@@ -6,7 +6,11 @@ import Avatar from "../../base/Avatar";
 //import { getAllFollowing } from "../../../actions/userAction";
 
 const FollowingList = ({ handleClickUser }) => {
-  const following = useSelector((state) => state.followingReducer);
+  let following = useSelector((state) => state.followingReducer);
+
+  if (following === "") {
+    following = [];
+  }
 
   //const dispatch = useDispatch();
   // useEffect(() => {

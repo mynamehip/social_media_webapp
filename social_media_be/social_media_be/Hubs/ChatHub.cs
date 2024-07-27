@@ -57,15 +57,6 @@ public class ChatHub : Hub
         {
             user.connectionId = Context.ConnectionId;
             await _context.SaveChangesAsync();
-
-            // Gửi tin nhắn chưa đọc
-            //var unreadMessages = _context.Messages.Where(m => m.ReceiverId == userId && !m.IsRead).ToList();
-            //foreach (var message in unreadMessages)
-            //{
-            //    await Clients.Client(Context.ConnectionId).SendAsync("ReceiveMessage", message.SenderId, message.MessageText);
-            //    message.IsRead = true;
-            //}
-            //await _context.SaveChangesAsync();
         }
         await base.OnConnectedAsync();
     }

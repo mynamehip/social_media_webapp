@@ -59,14 +59,7 @@ const PostBox = ({ post, loadMethod }) => {
 
   return (
     <div>
-      {isOpenDialog && (
-        <ConfrimDialog
-          header={"Confirm"}
-          message={"Are you sure wanna delete this?"}
-          actionMethod={handleDeletePost}
-          cancelMethod={handleOpenDialog}
-        ></ConfrimDialog>
-      )}
+      {isOpenDialog && <ConfrimDialog header={"Confirm"} message={"Are you sure wanna delete this?"} actionMethod={handleDeletePost} cancelMethod={handleOpenDialog}></ConfrimDialog>}
       <div className=" flex justify-between">
         <div className="text-lg font-semibold leading-tight pb-4 flex items-center gap-3">
           <div className=" w-10 h-10">
@@ -80,21 +73,9 @@ const PostBox = ({ post, loadMethod }) => {
           </div>
         ) : null}
       </div>
-      <div className={`${post.content && "pb-4"}`}>
-        {handleContent(post.content)}
-      </div>
-      <div
-        className={` w-full flex items-center justify-center ${
-          post.imagePath && "pb-4"
-        }`}
-      >
-        {post.imagePath && (
-          <img
-            src={hostURL + post.imagePath}
-            alt=""
-            className=" w-full max-h-96 rounded-md object-contain"
-          />
-        )}
+      <div className={`${post.content && "pb-4"}`}>{handleContent(post.content)}</div>
+      <div className={` w-full flex items-center justify-center ${post.imagePath && "pb-4"}`}>
+        {post.imagePath && <img src={hostURL + "/Images/" + post.imagePath} alt="" className=" w-full max-h-96 rounded-md object-contain" />}
       </div>
       <div className="flex items-center gap-1">
         <VoteBox post={post}></VoteBox>

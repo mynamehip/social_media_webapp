@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using social_media_be.Entities;
+using social_media_be.Hubs;
 using social_media_be.Repositories.AuthRepository;
 using social_media_be.Repositories.PostRepository;
 using social_media_be.Repositories.UserRepository;
@@ -46,7 +47,7 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("http://localhost:3000", "https://yourfrontenddomain.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("https://smwa.netlify.app", "http://localhost:3000", "https://yourfrontenddomain.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
@@ -69,7 +70,7 @@ builder.Services.AddAuthentication(option =>
 {
     option.SaveToken = true;
     option.RequireHttpsMetadata = false;
-    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    option.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -100,6 +101,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapHub<ChatHub>("/Chat");
+app.MapHub<WatchHub>("/Watch");
 
 app.UseStaticFiles();
 

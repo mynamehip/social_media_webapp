@@ -43,18 +43,11 @@ const ProfileBox = () => {
 
   return (
     <div>
-      {isOpenNewPost && (
-        <CreatePostBox
-          handleOpenNewPost={handleOpenNewPost}
-          onCreatePost={loadUserActivities}
-        ></CreatePostBox>
-      )}
+      {isOpenNewPost && <CreatePostBox handleOpenNewPost={handleOpenNewPost} onCreatePost={loadUserActivities}></CreatePostBox>}
       <div className=" bg-glass min-h-80">
         <div onClick={handleClick}>
           <div className=" h-28 bg-white rounded-xl m-2 flex items-center justify-center overflow-hidden">
-            {user.cover && (
-              <img src={hostURL + user.cover} alt="" className="object-cover" />
-            )}
+            {user.cover && <img src={hostURL + "/Images/" + user.cover} alt="" className="object-cover" />}
             <div className="absolute h-20 w-20 object-cover rounded-full top-20">
               <Avatar avatar={user.avatar}></Avatar>
             </div>

@@ -5,8 +5,9 @@ import ListUserBox from "../ui/userList/ListUserBox";
 import { searchUser } from "../../actions/searchAction";
 
 import { FaSearch } from "react-icons/fa";
+import { FaCircleXmark } from "react-icons/fa6";
 
-const SearchBar = () => {
+const SearchBar = ({ sideButtonMethod }) => {
   const [userName, setUserName] = useState("");
   const [userList, setUserList] = useState([]);
 
@@ -52,25 +53,31 @@ const SearchBar = () => {
   };
 
   return (
-    <div className={` flex flex-col max-h-1/2 overflow-hidden`}>
-      <div className=" flex relative">
-        <input
-          type="search"
-          placeholder="Search..."
-          name=""
-          id=""
-          className=" h-10 flex-1 bg-white/50 border-2 border-white/40 rounded-full pl-10 pr-3 focus:outline-none"
-          onChange={(e) => setUserName(e.target.value)}
-        />
-        <button
-          className=" text-white absolute top-1/2 -translate-y-1/2 left-1 rounded-full p-2 hover:bg-white/50"
-          onClick={handleSearch}
+    <div className={` flex flex-col md:max-h-[50%] max-h-[40%]`}>
+      <div className=" flex gap-2 items-center justify-center">
+        <div
+          className=" text-white text-2xl lg:hidden block"
+          onClick={sideButtonMethod}
         >
-          <FaSearch />
-        </button>
+          <FaCircleXmark />
+        </div>
+        <div className=" flex-1 flex relative">
+          <input
+            type="search"
+            placeholder="Search..."
+            className=" h-10 flex-1 bg-white/50 border-2 border-white/40 rounded-full pl-10 pr-3 focus:outline-none"
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <button
+            className=" text-white absolute top-1/2 -translate-y-1/2 left-1 rounded-full p-2 hover:bg-white/50"
+            onClick={handleSearch}
+          >
+            <FaSearch />
+          </button>
+        </div>
       </div>
       {userList.length > 0 && (
-        <div className=" bg-glass flex-1 rounded-2xl mt-2 pt-2">
+        <div className=" bg-glass flex-1 rounded-2xl mt-2 pt-2 overflow-y-scroll no-scrollbar">
           <ListUserBox users={userList}></ListUserBox>
         </div>
       )}

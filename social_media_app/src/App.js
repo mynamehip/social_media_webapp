@@ -8,6 +8,9 @@ import SignInForm from "./components/forms/SignInForm";
 import SignUpForm from "./components/forms/SignUpForm";
 import NewPostBox from "./components/ui/post/NewPostBox";
 import Chat from "./layouts/Chat";
+import Watch from "./layouts/Watch";
+import Room from "./components/ui/watch/Room";
+import Index from "./components/ui/watch/Index";
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
           <Route path="/profile/:userId" element={<Profile />}></Route>
         </Route>
         <Route path="/chat" element={<Chat />}></Route>
+        <Route path="/watch" element={<Watch />}>
+          <Route index element={<Index />}></Route>
+          <Route path="/watch/:roomName" element={<Room />}></Route>
+        </Route>
       </Routes>
       <ToastContainer />
     </div>

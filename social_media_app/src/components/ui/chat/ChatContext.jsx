@@ -40,17 +40,14 @@ export const SignalRProvider = ({ children }) => {
         .withAutomaticReconnect()
         .build();
 
-      conn.on(
-        "ReceiveMessage",
-        (messageText, senderId, receiverId, timestamp) => {
-          if (window.location.pathname.includes("/chat")) {
-            changeChatList({ messageText, senderId, receiverId, timestamp });
-          } else {
-            setHasNewMessages(true);
-            changeUnreadList({ messageText, senderId, receiverId, timestamp });
-          }
+      conn.on("ReceiveMessage", (messageText, senderId, receiverId, timestamp) => {
+        if (window.location.pathname.includes("/chat")) {
+          changeChatList({ messageText, senderId, receiverId, timestamp });
+        } else {
+          setHasNewMessages(true);
+          changeUnreadList({ messageText, senderId, receiverId, timestamp });
         }
-      );
+      });
 
       await conn.start();
       setConnection(conn);
@@ -102,10 +99,7 @@ export const SignalRProvider = ({ children }) => {
 
     setMessages((prevMessages) => {
       if (
-        prevMessages.some(
-          (e) =>
-            e.senderId === value.senderId || e.receiverId === value.senderId
-        )
+        prevMessages.some((e) => e.senderId === value.senderId || e.receiverId === value.senderId)
       ) {
         return [...prevMessages, value];
       }

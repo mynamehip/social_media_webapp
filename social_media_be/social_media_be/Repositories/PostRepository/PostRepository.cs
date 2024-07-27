@@ -29,12 +29,12 @@ namespace social_media_be.Repositories.PostRepository
             {
                 if (model.Image != null && model.Image.Length > 0)
                 {
-                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", model.Image.FileName);
+                    imagePath = "Post/" + model.Image.FileName;
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", imagePath);
                     using (var stream = File.Create(path))
                     {
                         await model.Image.CopyToAsync(stream);
                     }
-                    imagePath = "/Images/" + model.Image.FileName; 
                 }
                 var post = _mapper.Map<Post>(model);
                 post.Image = imagePath;
@@ -46,7 +46,7 @@ namespace social_media_be.Repositories.PostRepository
             {
                 if (!string.IsNullOrEmpty(imagePath))
                 {
-                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath.TrimStart('/'));
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", imagePath);
                     if (File.Exists(fullPath))
                     {
                         File.Delete(fullPath);
@@ -86,7 +86,7 @@ namespace social_media_be.Repositories.PostRepository
             {
                 if (!string.IsNullOrEmpty(post.Image))
                 {
-                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", post.Image.TrimStart('/'));
+                    var fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", post.Image);
                     if (System.IO.File.Exists(fullPath))
                     {
                         System.IO.File.Delete(fullPath);

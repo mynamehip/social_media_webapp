@@ -1,48 +1,20 @@
 {
   "Files": [
     {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133655670266483591_anh-gai-xinh-vn-2.jpg",
-      "PackagePath": "staticwebassets\\Images\\133655670266483591_anh-gai-xinh-vn-2.jpg"
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\Post\\1721726391466_199f48bb51aa2825fd08aee795146701.jpg",
+      "PackagePath": "staticwebassets\\Images\\Post\\1721726391466_199f48bb51aa2825fd08aee795146701.jpg"
     },
     {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133655670400429626_GOGOrSVaUAAXorn.jpg",
-      "PackagePath": "staticwebassets\\Images\\133655670400429626_GOGOrSVaUAAXorn.jpg"
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\Post\\1721726576438_anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\Post\\1721726576438_anh-gai-xinh-vn-2.jpg"
     },
     {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133655670712223379_OIP8.jpg",
-      "PackagePath": "staticwebassets\\Images\\133655670712223379_OIP8.jpg"
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\Profile\\1721726640049_GOGOrSVaUAAXorn.jpg",
+      "PackagePath": "staticwebassets\\Images\\Profile\\1721726640049_GOGOrSVaUAAXorn.jpg"
     },
     {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\133655671327346100_OIP5.jpg",
-      "PackagePath": "staticwebassets\\Images\\133655671327346100_OIP5.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1721093587378_OIP6.jpg",
-      "PackagePath": "staticwebassets\\Images\\1721093587378_OIP6.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1721093721629_OIP4.jpg",
-      "PackagePath": "staticwebassets\\Images\\1721093721629_OIP4.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1721137183983_gx1.jpg",
-      "PackagePath": "staticwebassets\\Images\\1721137183983_gx1.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\1721224711486_OIP7.jpg",
-      "PackagePath": "staticwebassets\\Images\\1721224711486_OIP7.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\OIP5.jpg",
-      "PackagePath": "staticwebassets\\Images\\OIP5.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\OIP8.jpg",
-      "PackagePath": "staticwebassets\\Images\\OIP8.jpg"
-    },
-    {
-      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\anh-gai-xinh-vn-2.jpg",
-      "PackagePath": "staticwebassets\\Images\\anh-gai-xinh-vn-2.jpg"
+      "Id": "D:\\Code_Data\\Learn\\Web\\Projects\\SocialMediaApp\\social_media_be\\social_media_be\\wwwroot\\Images\\Profile\\1721727264031_anh-gai-xinh-vn-2.jpg",
+      "PackagePath": "staticwebassets\\Images\\Profile\\1721727264031_anh-gai-xinh-vn-2.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.social_media_be.props",

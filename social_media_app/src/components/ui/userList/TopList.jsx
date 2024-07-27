@@ -53,10 +53,10 @@ const TopList = () => {
     //   </div>
     // </div>
     <div className="bg-glass flex-1 overflow-hidden">
-      <div className=" h-[10%] font-bold text-3xl pl-5 flex items-center">
+      <div className=" md:h-[10%] font-bold text-3xl pl-5 md:flex items-center hidden">
         New users
       </div>
-      <div className=" h-[90%] overflow-auto no-scrollbar pb-2">
+      <div className=" md:h-[90%] h-full overflow-auto no-scrollbar pb-2 md:pt-0 pt-2">
         <ListUserBox users={newUsers}></ListUserBox>
         <div
           className=" text-center text-blue-800 font-semibold hover:cursor-default"
