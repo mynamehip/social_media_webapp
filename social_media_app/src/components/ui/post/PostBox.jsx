@@ -3,13 +3,14 @@ import { toast, Slide } from "react-toastify";
 
 import Avatar from "../../base/Avatar";
 import VoteBox from "./VoteBox";
-// import { TbMessageCircle } from "react-icons/tb";
+import PostCommentBox from "./PostCommentBox";
 import { FaCircleXmark } from "react-icons/fa6";
 import { UserContext } from "../../../layouts/Home";
 import ConfrimDialog from "../option/ConfrimDialog";
 
 import { hostURL } from "../../../api";
 import { deletePost } from "../../../actions/postAction";
+import { formatTimeAgo } from "../../../utils/formatDate";
 
 const PostBox = ({ post, loadMethod }) => {
   const user = useContext(UserContext);
@@ -58,33 +59,62 @@ const PostBox = ({ post, loadMethod }) => {
   };
 
   return (
-    <div>
-      {isOpenDialog && <ConfrimDialog header={"Confirm"} message={"Are you sure wanna delete this?"} actionMethod={handleDeletePost} cancelMethod={handleOpenDialog}></ConfrimDialog>}
-      <div className=" flex justify-between">
-        <div className="text-lg font-semibold leading-tight pb-4 flex items-center gap-3">
-          <div className=" w-10 h-10">
-            <Avatar avatar={post.avatar}></Avatar>
+    <article className="group">
+      {isOpenDialog && (
+        <ConfrimDialog
+          header={"Delete Post"}
+          message={"This action cannot be undone. Are you sure?"}
+          actionMethod={handleDeletePost}
+          cancelMethod={handleOpenDialog}
+        />
+      )}
+
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3 cursor-pointer">
+          <div className="w-11 h-11 rounded-full overflow-hidden ring-2 ring-gray-50 group-hover:ring-primary-100 transition-smooth">
+            <Avatar avatar={post.avatar} />
           </div>
-          {post.userName}
-        </div>
-        {user?.id === post.userId ? (
-          <div className=" text-2xl text-white">
-            <FaCircleXmark onClick={handleOpenDialog} />
+          <div className="flex flex-col">
+            <span className="text-sm font-bold text-gray-900 leading-tight hover:underline transition-all">
+              {post.userName}
+            </span>
+            <span className="text-[11px] font-medium text-gray-400 uppercase tracking-wider">
+              {formatTimeAgo(post.createdAt || post.timestamp || post.postAt)}
+            </span>
           </div>
-        ) : null}
-      </div>
-      <div className={`${post.content && "pb-4"}`}>{handleContent(post.content)}</div>
-      <div className={` w-full flex items-center justify-center ${post.imagePath && "pb-4"}`}>
-        {post.imagePath && <img src={hostURL + "/Images/" + post.imagePath} alt="" className=" w-full max-h-96 rounded-md object-contain" />}
-      </div>
-      <div className="flex items-center gap-1">
-        <VoteBox post={post}></VoteBox>
-        {/* <div className=" text-xl pl-5">
-          <TbMessageCircle />
         </div>
-        {post.comment} */}
+
+        {user?.id === post.userId && (
+          <button
+            onClick={handleOpenDialog}
+            className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-smooth opacity-0 group-hover:opacity-100"
+          >
+            <FaCircleXmark size={18} />
+          </button>
+        )}
       </div>
-    </div>
+
+      <div className="text-[15px] text-gray-700 leading-relaxed mb-4 whitespace-pre-wrap">
+        {handleContent(post.content)}
+      </div>
+
+      {post.imagePath && (
+        <div className="mb-4 rounded-2xl overflow-hidden border border-gray-50 bg-gray-50">
+          <img
+            src={hostURL + "/Images/" + post.imagePath}
+            alt="Post content"
+            className="w-full max-h-[500px] object-cover hover:scale-[1.01] transition-smooth cursor-pointer"
+          />
+        </div>
+      )}
+
+      <div className="pt-2 border-t border-gray-50 space-y-4">
+        <div className="flex items-center">
+          <VoteBox post={post} />
+        </div>
+        <PostCommentBox postId={post.postId} initialCommentCount={post.commentCount} />
+      </div>
+    </article>
   );
 };
 

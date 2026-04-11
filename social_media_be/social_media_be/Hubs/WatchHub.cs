@@ -131,20 +131,32 @@ namespace social_media_be.Hubs
             await Clients.Group(roomName).SendAsync("ReceiveRoomMessage", userName, messageText, DateTime.Now);
         }
 
-        public async Task SendVieoState(string userConnection, string roomName, VideoInfo model)
+        public async Task SendVideoState(string userConnection, string roomName, VideoInfo model)
         {
             if (connection.ContainsKey(roomName))
             {
                 connection[roomName].video = model;
-            }
-            if(userConnection == null)
-            {
-                await Clients.Group(roomName).SendAsync("ReceiveRoomVideo", connection[roomName].video);
-            }
-            else
-            {
                 await Clients.Client(userConnection).SendAsync("ReceiveRoomVideo", connection[roomName].video);
             }
+        }
+
+        public async Task SendURL(string roomName, string value)
+        {
+            if (connection.ContainsKey(roomName))
+            {
+                connection[roomName].video.videoURL = value;
+            }
+            await Clients.Group(roomName).SendAsync("ReceiveVideoURL", value);
+        }
+
+        public async Task PlayVideo(string userConnection, string roomName, bool value)
+        {
+            await Clients.GroupExcept(roomName, userConnection).SendAsync("ReceiveVideoPlay", value);
+        }
+
+        public async Task SeekVideo(string userConnection, string roomName, float value)
+        {
+            await Clients.GroupExcept(roomName, userConnection).SendAsync("ReceiveVideoSeek", value);
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)

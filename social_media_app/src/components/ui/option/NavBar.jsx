@@ -7,67 +7,63 @@ import { useChatContext } from "../chat/ChatContext";
 
 const NavBar = ({ handleOpenMenu }) => {
   const user = useContext(UserContext) || {};
-
   const { hasNewMessages } = useChatContext();
-
   const [activeIcon, setActiveIcon] = useState("home");
-
   const navigate = useNavigate();
+
   const switchToHome = (value, icon) => {
     navigate(value, { replace: true });
     setActiveIcon(icon);
   };
 
-  const hightlightIcon = (icon) => {
-    return activeIcon === icon ? "bg-[#ffffff80]" : "";
+  const getIconClass = (icon) => {
+    return activeIcon === icon 
+      ? "text-primary-600 bg-primary-50 shadow-sm" 
+      : "text-gray-400 hover:text-gray-600 hover:bg-gray-50";
   };
 
   return (
-    <div className=" flex gap-2">
+    <nav className="flex items-center gap-4 w-full sticky top-0 z-30 bg-[#F1F5F9]/80 backdrop-blur-md py-2">
       <div
-        className=" lg:hidden h-10 w-10 text-white flex items-center text-2xl"
+        className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
         onClick={handleOpenMenu}
       >
-        <FaBars />
+        <FaBars size={24} />
       </div>
-      <div className="w-full bg-glass h-10 text-white flex items-center text-2xl px-2">
-        <div
+      
+      <div className="flex-1 bg-white border border-gray-100 rounded-2xl p-1 shadow-sm flex items-center justify-between">
+        <button
           onClick={() => switchToHome("/", "home")}
-          className={` lg:w-1/4 w-1/3 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
-            "home"
-          )} `}
+          className={`flex-1 flex justify-center py-2.5 rounded-xl transition-smooth ${getIconClass("home")}`}
         >
-          <FaHome />
-        </div>
-        <div
+          <FaHome size={22} />
+        </button>
+        
+        <button
           onClick={() => switchToHome(`/profile/${user?.id}`, "profile")}
-          className={` lg:w-1/4 w-1/3 flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
-            "profile"
-          )}`}
+          className={`flex-1 flex justify-center py-2.5 rounded-xl transition-smooth ${getIconClass("profile")}`}
         >
-          <FaUserCircle />
-        </div>
-        <div
+          <FaUserCircle size={22} />
+        </button>
+        
+        <button
           onClick={() => switchToHome(`/chat`, "chat")}
-          className={`lg:w-1/4 w-1/3 text-xl flex justify-center hover:bg-[#ffffff80] rounded-2xl ${hightlightIcon(
-            "chat"
-          )}`}
+          className={`flex-1 flex justify-center py-2.5 rounded-xl transition-smooth relative ${getIconClass("chat")}`}
         >
-          <div className=" relative">
-            <FaMessage />
-            {hasNewMessages === true ? (
-              <div className=" w-4 h-4 rounded-full bg-red-500 absolute top-[-0.5rem] right-[-0.5rem]"></div>
-            ) : null}
-          </div>
-        </div>
-        <div
+          <FaMessage size={20} />
+          {hasNewMessages && (
+            <span className="absolute top-2 right-[35%] w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+          )}
+        </button>
+        
+        <button
           onClick={() => switchToHome(`/watch`, "watch")}
-          className=" lg:w-1/4 lg:flex justify-center hover:bg-[#ffffff80] rounded-2xl hidden"
+          className={`flex-1 md:flex hidden justify-center py-2.5 rounded-xl transition-smooth ${getIconClass("watch")}`}
         >
-          <FaClapperboard />
-        </div>
+          <FaClapperboard size={20} />
+        </button>
       </div>
-    </div>
+    </nav>
   );
 };
 

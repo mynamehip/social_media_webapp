@@ -14,7 +14,7 @@ const Index = () => {
   const leaveAnyRoom = async () => {
     if (roomName !== "") {
       await connection.invoke("LeaveWatchRoom", connection.connectionId, roomName);
-      setVideo({ videoURL: "", playing: false, currentTime: 0 });
+      setVideo("", false, 0);
       setRoomName("");
     }
   };
@@ -25,31 +25,37 @@ const Index = () => {
   }, []);
 
   return (
-    <div className=" w-full h-screen flex">
+    <div className="w-full h-screen flex bg-[#F1F5F9] font-inter overflow-hidden">
       {openCreateRoom && (
         <CreateRoomDialog
           handleCreateDialog={() => setCreateRoom((prev) => !prev)}
-        ></CreateRoomDialog>
+        />
       )}
       {openJoinRoom && (
         <JoinRoomDialog
           handleJoinDialog={() => setJoinRoom((prev) => !prev)}
           joinRoomName={joinRoomName}
           setJoinRoomName={setJoinRoomName}
-        ></JoinRoomDialog>
+        />
       )}
-      <div className=" option w-1/5 h-full">
+      <div className="w-[300px] lg:w-[350px] shrink-0 h-full">
         <WatchOption
           handleCreateDialog={() => setCreateRoom((prev) => !prev)}
           handleJoinDialog={() => setJoinRoom((prev) => !prev)}
-        ></WatchOption>
+        />
       </div>
-      <div className=" roomList w-4/5 h-full bg-slate-950">
-        <ListRoom
-          roomList={roomList}
-          handleJoinDialog={() => setJoinRoom((prev) => !prev)}
-          setJoinRoomName={setJoinRoomName}
-        ></ListRoom>
+      <div className="flex-1 h-full overflow-hidden flex flex-col">
+        <div className="p-8 pb-4">
+          <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Active Rooms</h1>
+          <p className="text-gray-500 font-medium">Join a room and watch content with people around the world.</p>
+        </div>
+        <div className="flex-1 overflow-hidden">
+          <ListRoom
+            roomList={roomList}
+            handleJoinDialog={() => setJoinRoom((prev) => !prev)}
+            setJoinRoomName={setJoinRoomName}
+          />
+        </div>
       </div>
     </div>
   );

@@ -66,3 +66,26 @@ export const getVoteById = async (userId, postId) => {
     }
   );
 };
+
+export const getAllComment = async (postId) =>
+  hostAPI.get(`/api/Post/GetAllComment?postId=${postId}`);
+
+export const createComment = async (data) => {
+  return await hostAPI.post("/api/Post/CreateComment", data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token()}`,
+    },
+  });
+};
+
+export const deleteComment = async (commentId, userId) => {
+  return await hostAPI.delete(
+    `/api/Post/DeleteComment?commentId=${commentId}&userId=${userId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token()}`,
+      },
+    }
+  );
+};

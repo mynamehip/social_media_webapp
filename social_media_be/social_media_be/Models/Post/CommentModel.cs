@@ -1,15 +1,13 @@
-﻿using social_media_be.Models.User;
-
-namespace social_media_be.Models.Post
+﻿namespace social_media_be.Models.Post
 {
     public class CommentModel
     {
-            public int CommentId { get; set; }
-            public string Content { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public int PostId { get; set; }
-            public PostModel Post { get; set; }
-            public string UserId { get; set; }
-            public UserModel User { get; set; }
+        public string? CommentId { get; set; }
+        public string Content { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+        public string PostId { get; set; } = string.Empty;
+        public string UserId { get; set; } = string.Empty;
+        public string? UserName { get; set; }
+        public string? Avatar { get; set; }
     }
 }

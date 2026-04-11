@@ -21,11 +21,15 @@ export const WatchHubProvider = ({ children }) => {
   const [roomMessages, setRoomMessages] = useState();
   const [userList, setUserList] = useState([]);
   const [admin, setAdmin] = useState("");
-  const [video, setVideo] = useState({
-    videoURL: "",
-    isPlaying: false,
-    currentTIme: 0,
-  });
+  const [videoURL, setVideoURL] = useState("");
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videocurrenntTime, setVideoCurrentTime] = useState(0);
+
+  const setVideo = (url, playing, currentTime) => {
+    setVideoURL(url);
+    setVideoPlaying(playing);
+    setVideoCurrentTime(currentTime);
+  };
 
   const navigate = useNavigate();
 
@@ -42,7 +46,6 @@ export const WatchHubProvider = ({ children }) => {
         .build();
 
       conn.on("ReceiveRoomList", (list) => {
-        console.log(list);
         setRoomList(list);
       });
 
@@ -55,12 +58,25 @@ export const WatchHubProvider = ({ children }) => {
         setUserList(userList);
       });
 
-      conn.on("ReceiveRoomVideo", (videoState) => {
-        setVideo(videoState);
+      conn.on("ReceiveRoomVideo", ({ videoURL, playing, currentTime }) => {
+        setVideoURL(videoURL);
+        setVideoPlaying(playing);
+        setVideoCurrentTime(currentTime);
+      });
+
+      conn.on("ReceiveVideoURL", (url) => {
+        setVideoURL(url);
+      });
+
+      conn.on("ReceiveVideoPlay", (playing) => {
+        setVideoPlaying(playing);
+      });
+
+      conn.on("ReceiveVideoSeek", (currentTime) => {
+        setVideoCurrentTime(currentTime);
       });
 
       conn.on("ReceiveKickMessage", (mess) => {
-        console.log(mess);
         navigate("/watch");
         setRoomName("");
       });
@@ -90,9 +106,12 @@ export const WatchHubProvider = ({ children }) => {
         setRoomName,
         userList,
         admin,
-        video,
-        setVideo,
         roomList,
+        videoURL,
+        videoPlaying,
+        videocurrenntTime,
+        setVideo,
+        setVideoPlaying,
       }}
     >
       {children}

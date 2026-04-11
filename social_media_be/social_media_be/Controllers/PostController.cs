@@ -57,7 +57,7 @@ namespace social_media_be.Controllers
         }
 
         [HttpGet("GetPostByUser")]
-        public async Task<IActionResult> GetPostByUser( string userId, int pageNumber, int pageSize)
+        public async Task<IActionResult> GetPostByUser(string userId, int pageNumber, int pageSize)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace social_media_be.Controllers
 
         [HttpDelete("DeletePost")]
         [Authorize(Roles = AppRoles.User)]
-        public async Task<IActionResult> DeletePostById (string postId)
+        public async Task<IActionResult> DeletePostById(string postId)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace social_media_be.Controllers
                 return BadRequest(ex.Message);
             }
         }
-    
+
         [HttpPost("VotePost")]
         [Authorize(Roles = AppRoles.User)]
         public async Task<IActionResult> VoteThePost(VoteModel model)
@@ -152,7 +152,7 @@ namespace social_media_be.Controllers
             try
             {
                 var result = await _repo.GetVoteByIdAsync(userId, postId);
-                if(result == null)
+                if (result == null)
                 {
                     return StatusCode(204);
                 }
@@ -160,7 +160,55 @@ namespace social_media_be.Controllers
                 {
                     return Ok(result);
                 }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [HttpGet("GetAllComment")]
+        public async Task<IActionResult> GetAllComment(string postId)
+        {
+            try
+            {
+                var comments = await _repo.GetAllCommentsAsync(postId);
+                return Ok(comments);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CreateComment")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> CreateComment(CommentModel model)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(model.Content))
+                {
+                    return BadRequest("Comment cannot be empty");
+                }
+
+                var comment = await _repo.AddCommentAsync(model);
+                return Ok(comment);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("DeleteComment")]
+        [Authorize(Roles = AppRoles.User)]
+        public async Task<IActionResult> DeleteComment(string commentId, string userId)
+        {
+            try
+            {
+                await _repo.DeleteCommentAsync(commentId, userId);
+                return Ok();
             }
             catch (Exception ex)
             {

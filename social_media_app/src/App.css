@@ -1,11 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import "react-toastify/dist/ReactToastify.css";
 
+@layer base {
+  body {
+    @apply font-inter text-gray-900;
+  }
+}
+
 .bgGradient {
-  background: linear-gradient(135deg, #00f26187, #0576e67e);
+  background: radial-gradient(circle at top left, #877EFF, #5D5FEF, #0575E6);
 }
 
 .bg-glass {
-  @apply bg-white/30 rounded-xl border-2 border-white/60 backdrop-blur-md;
+  @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl shadow-black/5 rounded-3xl;
+}
+
+.bg-glass-dark {
+  @apply bg-gray-900/60 backdrop-blur-xl border border-white/10 shadow-2xl rounded-3xl;
+}
+
+.premium-shadow {
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item-active {
+  @apply bg-primary-500 text-white shadow-lg shadow-primary-500/20;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -18,15 +51,35 @@
 }
 
 body ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 body ::-webkit-scrollbar-thumb {
-  background-color: white;
-  border-radius: 100rem;
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
 }
 
 body ::-webkit-scrollbar-track {
-  margin-right: 5px;
-  background-color: transparent;
+  @apply bg-transparent;
+}
+
+/* Custom transitions */
+.transition-smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Chat specific styles */
+.message-bubble-sender {
+  @apply bg-primary-600 text-white rounded-2xl rounded-tr-none px-4 py-2.5 shadow-sm;
+}
+
+.message-bubble-receiver {
+  @apply bg-white text-gray-800 rounded-2xl rounded-tl-none px-4 py-2.5 shadow-sm border border-gray-100;
+}
+
+.chat-history-item {
+  @apply flex items-center gap-3 p-3 rounded-2xl cursor-pointer transition-smooth hover:bg-gray-100;
+}
+
+.chat-history-item-active {
+  @apply bg-primary-50 border-r-4 border-primary-600;
 }

@@ -42,33 +42,54 @@ const ProfileBox = () => {
   };
 
   return (
-    <div>
-      {isOpenNewPost && <CreatePostBox handleOpenNewPost={handleOpenNewPost} onCreatePost={loadUserActivities}></CreatePostBox>}
-      <div className=" bg-glass min-h-80">
-        <div onClick={handleClick}>
-          <div className=" h-28 bg-white rounded-xl m-2 flex items-center justify-center overflow-hidden">
-            {user.cover && <img src={hostURL + "/Images/" + user.cover} alt="" className="object-cover" />}
-            <div className="absolute h-20 w-20 object-cover rounded-full top-20">
-              <Avatar avatar={user.avatar}></Avatar>
+    <div className="w-full">
+      {isOpenNewPost && (
+        <CreatePostBox 
+          handleOpenNewPost={handleOpenNewPost} 
+          onCreatePost={loadUserActivities} 
+        />
+      )}
+      <div className="bg-white border border-gray-200/60 rounded-[32px] overflow-hidden shadow-md shadow-gray-200/50 hover:shadow-lg transition-smooth">
+        <div className="cursor-pointer" onClick={handleClick}>
+          <div className="h-24 bg-gradient-to-r from-primary-500 to-primary-600 relative">
+            {user.cover && (
+              <img 
+                src={hostURL + "/Images/" + user.cover} 
+                alt="" 
+                className="w-full h-full object-cover opacity-80" 
+              />
+            )}
+            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 p-1 bg-white rounded-full shadow-lg">
+              <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-white">
+                <Avatar avatar={user.avatar} />
+              </div>
             </div>
           </div>
-          <div className="flex flex-col items-center pt-10">
-            <div className=" text-base font-semibold">{user.userName}</div>
+          
+          <div className="pt-12 pb-6 text-center">
+            <h2 className="text-lg font-bold text-gray-900 tracking-tight">{user.userName}</h2>
+            <p className="text-xs text-gray-500 font-medium">@{user.userName?.toLowerCase().replace(/\s/g, "")}</p>
           </div>
-          <div className="flex justify-around m-4 p-2 border-t-2 border-b-2 border-white/40">
-            <div className="flex flex-col items-center">
-              <div className=" text-base font-semibold">Follower</div>
-              <div className=" text-sm">{userActivities.follower}</div>
+
+          <div className="flex border-t border-gray-50">
+            <div className="flex-1 py-4 flex flex-col items-center border-r border-gray-50 hover:bg-gray-50 transition-colors">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Followers</span>
+              <span className="text-base font-extrabold text-gray-900">{userActivities.follower}</span>
             </div>
-            <div className="flex flex-col items-center">
-              <div className=" text-base font-semibold">Post</div>
-              <div className=" text-sm">{userActivities.postNumber}</div>
+            <div className="flex-1 py-4 flex flex-col items-center hover:bg-gray-50 transition-colors">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Posts</span>
+              <span className="text-base font-extrabold text-gray-900">{userActivities.postNumber}</span>
             </div>
           </div>
         </div>
-        <div className="flex justify-center pb-4 items-center">
-          <Button fill onClick={handleOpenNewPost}>
-            New Post
+        
+        <div className="p-4 bg-gray-50/50">
+          <Button 
+            fill 
+            onClick={handleOpenNewPost} 
+            css="w-full py-2.5 rounded-2xl shadow-primary-600/10 hover:shadow-lg transition-smooth"
+          >
+            Create New Post
           </Button>
         </div>
       </div>

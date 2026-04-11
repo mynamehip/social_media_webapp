@@ -41,30 +41,30 @@ const TopList = () => {
   };
 
   return (
-    // <div className="bg-glass flex-1 overflow-hidden">
-    //   <div className=" font-bold text-3xl pl-5 pt-5">Trend for you</div>
-    //   <div className="p-5">
-    //     {listData.map((data, index) => (
-    //       <div key={index}>
-    //         <div className=" font-semibold">{data.content}</div>
-    //         <div className=" pl-2 text-gray-600">#{data.name}</div>
-    //       </div>
-    //     ))}
-    //   </div>
-    // </div>
-    <div className="bg-glass flex-1 overflow-hidden">
-      <div className=" md:h-[10%] font-bold text-3xl pl-5 md:flex items-center hidden">
-        New users
+    <div className="flex flex-col h-full">
+      <div className="flex items-center justify-between mb-4 px-2">
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-[0.15em]">New Connections</h3>
+        <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
       </div>
-      <div className=" md:h-[90%] h-full overflow-auto no-scrollbar pb-2 md:pt-0 pt-2">
-        <ListUserBox users={newUsers}></ListUserBox>
-        <div
-          className=" text-center text-blue-800 font-semibold hover:cursor-default"
-          ref={loadRef}
-          onClick={handleLoad}
-        >
-          Load more...
-        </div>
+      
+      <div className="flex-1 overflow-y-auto no-scrollbar space-y-1">
+        <ListUserBox users={newUsers} />
+        
+        {loadAble && (
+          <button
+            className="w-full py-3 mt-2 text-xs font-bold text-primary-600 hover:bg-primary-50 rounded-xl transition-smooth"
+            ref={loadRef}
+            onClick={handleLoad}
+          >
+            Show more people
+          </button>
+        )}
+        
+        {!loadAble && (
+          <div className="text-center py-4 text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+            You're all caught up
+          </div>
+        )}
       </div>
     </div>
   );

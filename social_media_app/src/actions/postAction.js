@@ -76,3 +76,30 @@ export const getVoteById = async (userId, postId) => {
     throw error;
   }
 };
+
+export const getAllComment = async (postId) => {
+  try {
+    const response = await PostAPI.getAllComment(postId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createComment = async (data) => {
+  try {
+    const response = await PostAPI.createComment(data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteComment = async (commentId, userId) => {
+  try {
+    const response = await PostAPI.deleteComment(commentId, userId);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

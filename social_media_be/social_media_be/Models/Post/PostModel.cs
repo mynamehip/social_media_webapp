@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using social_media_be.Entities;
 
 namespace social_media_be.Models.Post
@@ -17,5 +17,7 @@ namespace social_media_be.Models.Post
         public IFormFile? Image { get; set; }
 
         public string? imagePath { get; set; }
+
+        public int CommentCount { get; set; }
     }
 }

@@ -15,5 +15,9 @@ namespace social_media_be.Repositories.PostRepository
         public Task DeleteVotePostAsync(string userid, string postId);
         public Task<(int upVote, int downVote)> GetAllVoteAsync(string postId);
         public Task<VoteModel> GetVoteByIdAsync(string userId, string postId);
+
+        public Task<IEnumerable<CommentModel>> GetAllCommentsAsync(string postId);
+        public Task<CommentModel> AddCommentAsync(CommentModel model);
+        public Task DeleteCommentAsync(string commentId, string userId);
     }
 }

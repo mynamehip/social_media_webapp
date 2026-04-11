@@ -69,30 +69,42 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="md:p-10 p-5 lg:w-2/5 sm:w-3/5 w-full mx-5 bg-glass">
-      <h1 className="text-[34px] font-bold pb-5">Sign In</h1>
-      <Input
-        label="Email"
-        name="email"
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-        errorMessage={formError.email}
-        onChange={handleInputChange}
-        handleValidate={handleValidate}
-      ></Input>
-      <Input
-        label="Password"
-        isPassword
-        name="password"
-        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?.&])[A-Za-z\d@$!%*?.&]*"
-        errorMessage={formError.password}
-        onChange={handleInputChange}
-        handleValidate={handleValidate}
-      ></Input>
-      <div className="flex gap-10 mt-5">
-        <Button fill onClick={handleSubmit}>
-          {!loading ? "Sign In" : "Loading..."}
+    <div className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-extrabold text-gray-900 mb-2 font-inter tracking-tight">Welcome Back</h1>
+        <p className="text-gray-500 text-sm">Please enter your details to sign in.</p>
+      </div>
+
+      <div className="space-y-4">
+        <Input
+          label="Email"
+          name="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          errorMessage={formError.email}
+          onChange={handleInputChange}
+          handleValidate={handleValidate}
+        />
+        <Input
+          label="Password"
+          isPassword
+          name="password"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?.&])[A-Za-z\d@$!%*?.&]*"
+          errorMessage={formError.password}
+          onChange={handleInputChange}
+          handleValidate={handleValidate}
+        />
+      </div>
+
+      <div className="mt-8 flex flex-col gap-4">
+        <Button fill onClick={handleSubmit} css="w-full py-3 text-lg font-semibold hover:scale-[1.02] shadow-md transition-all">
+          {!loading ? "Sign In" : "Signing In..."}
         </Button>
-        <Button onClick={switchForm}>Sign Up</Button>
+        <div className="text-center text-sm font-medium text-gray-500 mt-2">
+          Don't have an account?{" "}
+          <button onClick={switchForm} className="text-primary-600 hover:text-primary-500 hover:underline transition-colors">
+            Sign Up
+          </button>
+        </div>
       </div>
     </div>
   );

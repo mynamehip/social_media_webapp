@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using social_media_be.Entities;
 using social_media_be.Hubs;
 using social_media_be.Repositories.AuthRepository;
@@ -31,23 +31,9 @@ builder.Services.AddSwaggerGen(option =>
         BearerFormat = "JWT",
         Scheme = "Bearer"
     });
-    option.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
 });
 
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("https://smwa.netlify.app", "http://localhost:3000", "https://yourfrontenddomain.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.WithOrigins("https://smwa.netlify.app", "http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()));
 
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 

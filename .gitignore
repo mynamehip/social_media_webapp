@@ -1,0 +1,25 @@
+# Frontend
+social_media_app/node_modules/
+social_media_app/build/
+social_media_app/coverage/
+
+# Backend
+social_media_be/**/bin/
+social_media_be/**/obj/
+social_media_be/**/PubTmp/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+*.dswa.cache.json
+*.myp~
+*.vvr~
+
+# User-specific publish settings
+*.pubxml.user
+*.csproj.user
+
+# OS/editor
+.DS_Store
+.vs/

@@ -69,8 +69,8 @@ const ListUserBox = ({ users }) => {
             className=" flex gap-4 items-center bg-white p-2 rounded-xl"
             onClick={() => handleUserClick(item.id)}
           >
-            <div className=" h-12 w-12">
-              <Avatar avatar={item.avatar}></Avatar>
+            <div className="h-10 w-10 shrink-0 ring-2 ring-gray-50 rounded-full overflow-hidden">
+              <Avatar avatar={item.avatar} />
             </div>
             <div>
               <div className=" text-base font-semibold">{item.userName}</div>

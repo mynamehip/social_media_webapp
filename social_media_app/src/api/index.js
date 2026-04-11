@@ -8,8 +8,10 @@ export const token = () => {
   return JSON.parse(tokenData).result;
 };
 
-// export const hostURL = "https://scmwaAPI.somee.com";
-// export const hostAPI = axios.create({ baseURL: "https://scmwaAPI.somee.com" });
+const defaultApiUrl =
+  process.env.NODE_ENV === "development"
+    ? "https://localhost:7293"
+    : "https://scmwaAPI.somee.com";
 
-export const hostURL = "https://localhost:7293";
-export const hostAPI = axios.create({ baseURL: "https://localhost:7293" });
+export const hostURL = process.env.REACT_APP_API_URL || defaultApiUrl;
+export const hostAPI = axios.create({ baseURL: hostURL });

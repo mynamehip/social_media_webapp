@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using social_media_be.Entities;
 using social_media_be.Models.Post;
 using social_media_be.Repositories.UserRepository;
@@ -38,6 +36,7 @@ namespace social_media_be.Repositories.PostRepository
                 }
                 var post = _mapper.Map<Post>(model);
                 post.Image = imagePath;
+                post.CreatedAt = DateTime.Now;
                 await _context.Posts.AddAsync(post);
                 await _context.SaveChangesAsync();
                 return true;
@@ -52,7 +51,7 @@ namespace social_media_be.Repositories.PostRepository
                         File.Delete(fullPath);
                     }
                 }
-                throw new Exception(ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -70,6 +69,7 @@ namespace social_media_be.Repositories.PostRepository
                                                        UserName = user.UserName,
                                                        UserId = user.Id,
                                                        avatar = user.avatar,
+                                                       CommentCount = _context.Comments.Count(c => c.PostId == post.PostId)
                                                    }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return result;
         }
@@ -116,6 +116,7 @@ namespace social_media_be.Repositories.PostRepository
                                                        UserName = user.UserName,
                                                        UserId = user.Id,
                                                        avatar = user.avatar,
+                                                       CommentCount = _context.Comments.Count(c => c.PostId == post.PostId)
                                                    }).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return result;
         }
@@ -197,6 +198,95 @@ namespace social_media_be.Repositories.PostRepository
                 }
                 var vote = _mapper.Map<VoteModel>(result);
                 return vote;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<IEnumerable<CommentModel>> GetAllCommentsAsync(string postId)
+        {
+            try
+            {
+                var comments = await (from comment in _context.Comments
+                                      join user in _context.Users on comment.UserId equals user.Id
+                                      where comment.PostId == postId
+                                      orderby comment.CreatedAt ascending
+                                      select new CommentModel
+                                      {
+                                          CommentId = comment.CommentId,
+                                          Content = comment.Content,
+                                          CreatedAt = comment.CreatedAt,
+                                          PostId = comment.PostId,
+                                          UserId = comment.UserId,
+                                          UserName = user.UserName,
+                                          Avatar = user.avatar
+                                      }).ToListAsync();
+
+                return comments;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<CommentModel> AddCommentAsync(CommentModel model)
+        {
+            try
+            {
+                var comment = new Comment
+                {
+                    CommentId = Guid.NewGuid().ToString(),
+                    Content = model.Content,
+                    CreatedAt = DateTime.Now,
+                    PostId = model.PostId,
+                    UserId = model.UserId
+                };
+
+                await _context.Comments.AddAsync(comment);
+                await _context.SaveChangesAsync();
+
+                var createdComment = await (from c in _context.Comments
+                                            join user in _context.Users on c.UserId equals user.Id
+                                            where c.CommentId == comment.CommentId
+                                            select new CommentModel
+                                            {
+                                                CommentId = c.CommentId,
+                                                Content = c.Content,
+                                                CreatedAt = c.CreatedAt,
+                                                PostId = c.PostId,
+                                                UserId = c.UserId,
+                                                UserName = user.UserName,
+                                                Avatar = user.avatar
+                                            }).SingleAsync();
+
+                return createdComment;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task DeleteCommentAsync(string commentId, string userId)
+        {
+            try
+            {
+                var comment = await _context.Comments.SingleOrDefaultAsync(c => c.CommentId == commentId);
+                if (comment == null)
+                {
+                    throw new Exception("Comment not found");
+                }
+
+                if (comment.UserId != userId)
+                {
+                    throw new Exception("You do not have permission to delete this comment");
+                }
+
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
