@@ -111,7 +111,7 @@ const PostCommentBox = ({ postId, initialCommentCount = 0 }) => {
           className="flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary-600 transition-smooth"
         >
           <TbMessageCircle size={18} />
-          <span>{commentCount} bÃ¬nh luáº­n</span>
+          <span>{commentCount} bình luận</span>
         </button>
       </div>
 
@@ -126,7 +126,7 @@ const PostCommentBox = ({ postId, initialCommentCount = 0 }) => {
                 <textarea
                   value={content}
                   rows={2}
-                  placeholder="Viáº¿t bÃ¬nh luáº­n cá»§a báº¡n..."
+                  placeholder="Viết bình luận của bạn..."
                   onChange={(e) => setContent(e.target.value)}
                   className="w-full bg-transparent resize-none outline-none text-sm text-gray-700 placeholder:text-gray-400"
                 />
@@ -138,22 +138,22 @@ const PostCommentBox = ({ postId, initialCommentCount = 0 }) => {
                     css="rounded-xl px-4 py-2 flex items-center gap-2"
                   >
                     <TbSend size={16} />
-                    {isLoading ? "Äang gá»­i..." : "Gá»­i"}
+                    {isLoading ? "Đang gửi..." : "Gửi"}
                   </Button>
                 </div>
               </div>
             </div>
           ) : (
             <div className="text-sm text-gray-500 bg-gray-50 rounded-2xl px-4 py-3 border border-dashed border-gray-200">
-              ÄÄƒng nháº­p Ä‘á»ƒ bÃ¬nh luáº­n.
+              Đăng nhập để bình luận.
             </div>
           )}
 
           <div className="space-y-3">
             {isLoading && comments.length === 0 ? (
-              <div className="text-sm text-gray-400">Äang táº£i bÃ¬nh luáº­n...</div>
+              <div className="text-sm text-gray-400">Đang tải bình luận...</div>
             ) : comments.length === 0 ? (
-              <div className="text-sm text-gray-400">ChÆ°a cÃ³ bÃ¬nh luáº­n nÃ o.</div>
+              <div className="text-sm text-gray-400">Chưa có bình luận nào.</div>
             ) : (
               visibleComments.map((comment) => (
                 <div
@@ -177,7 +177,7 @@ const PostCommentBox = ({ postId, initialCommentCount = 0 }) => {
                         <button
                           onClick={() => handleDelete(comment.commentId)}
                           className="p-2 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-xl transition-smooth"
-                          title="XÃ³a bÃ¬nh luáº­n"
+                          title="Xóa bình luận"
                         >
                           <TbTrash size={16} />
                         </button>
@@ -196,7 +196,7 @@ const PostCommentBox = ({ postId, initialCommentCount = 0 }) => {
                 onClick={handleLoadMore}
                 className="text-sm font-semibold text-primary-600 hover:text-primary-500 transition-colors"
               >
-                Xem thÃªm bÃ¬nh luáº­n
+                Xem thêm bình luận
               </button>
             )}
           </div>
