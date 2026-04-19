@@ -2,7 +2,6 @@ import React, { useState, memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Button from "../components/base/Button";
 import ChatBox from "../components/ui/chat/ChatBox";
 import FollowingList from "../components/ui/chat/FollowingList";
 import ChatHistories from "../components/ui/chat/ChatHistories";
