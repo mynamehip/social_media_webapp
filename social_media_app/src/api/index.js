@@ -12,7 +12,7 @@ const defaultApiUrl =
   process.env.NODE_ENV === "development"
     ? "https://localhost:7293"
     // : "https://scmwaAPI.somee.com";
-    : "https://smwa-api.runasp.net";
+    : "http://smwa-api.runasp.net";
 
 export const hostURL = process.env.REACT_APP_API_URL || defaultApiUrl;
 export const hostAPI = axios.create({ baseURL: hostURL });
