@@ -2,5 +2,6 @@
 /social_media_be/bin
 /.vs
 /social_media_be/wwwroot
+/social_media_be/appsettings.json
 
 
