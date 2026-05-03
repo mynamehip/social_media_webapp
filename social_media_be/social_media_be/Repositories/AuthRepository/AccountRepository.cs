@@ -62,11 +62,11 @@ namespace social_media_be.Repositories.AuthRepository
             {
                 throw new Exception("Email already in used!");
             }
-            var checkEmailExist = await CheckEmailExist(model.Email);
-            if (checkEmailExist == false)
-            {
-                throw new Exception("Email not exist");
-            }
+            // var checkEmailExist = await CheckEmailExist(model.Email);
+            // if (checkEmailExist == false)
+            // {
+            //     throw new Exception("Email not exist");
+            // }
             var user = new User
             {
                 UserName = model.UserName,
